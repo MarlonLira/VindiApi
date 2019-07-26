@@ -100,7 +100,7 @@ namespace Vindi
             return FromDynamicTo<Product>(result?.product);
         }
 
-
+        //Retorna o item do produto pelo id informado
         public async Task<Product_Items> GetByIdAnythingAsync(Product_Items ProductItems, Int32 Id) {
             var result = await SearchByIdAsync("product_items", Id);
             return FromDynamicTo<Product_Items>(result?.product_item);
@@ -208,43 +208,43 @@ namespace Vindi
             return FromDynamicTo<Bill_Items>(result?.bill_item);
         }
 
-        //
+        //Retorna o Desconto pelo id informado.
         public async Task<Discount> GetByIdAnythingAsync(Discount Discount, Int32 Id) {
             var result = await SearchByIdAsync("discounts", Id);
             return FromDynamicTo<Discount>(result?.discount);
         }
 
-        //
+        //Retorna todos os lotes de importação.
         public async Task<IEnumerable<Import_Batche>> GetByAnythingAsync(Import_Batche ImportBatche ,IDictionary<FilterSearch, string> query = null, int page = 1, int perPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("import_batches", query, page, perPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Import_Batche>>(list?.import_batches);
         }
 
-        //
+        //Retorna o lote de importação pelo id informado.
         public async Task<Import_Batche> GetByIdAnythingAsync(Import_Batche ImportBatche, Int32 Id) {
             var result = await SearchByIdAsync("import_batches", Id);
             return FromDynamicTo<Import_Batche>(result?.import_batche);
         }
 
-        //
+        //Retorna todas as notas fiscais.
         public async Task<IEnumerable<Invoice>> GetByAnythingAsync(Invoice Invoice ,IDictionary<FilterSearch, string> query = null, int page = 1, int perPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("invoices", query, page, perPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Invoice>>(list?.invoices);
         }
 
-        //
+        //Retorna a nota fiscal pelo id informado.
         public async Task<Invoice> GetByIdAnythingAsync(Invoice Invoice, Int32 Id) {
             var result = await SearchByIdAsync("invoices", Id);
             return FromDynamicTo<Invoice>(result?.invoice);
         }
 
-        //
+        //Retorna todas as pendencias.
         public async Task<IEnumerable<Issue>> GetByAnythingAsync(Issue Issue,IDictionary<FilterSearch, string> query = null, int page = 1, int perPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("issues", query, page, perPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Issue>>(list?.issues);
         }
 
-        //
+        //Retorna uma pedencia pelo id informado.
         public async Task<Issue> GetByIdAnythingAsync(Issue Issue, Int32 Id) {
             var result = await SearchByIdAsync("issues", Id);
             return FromDynamicTo<Issue>(result?.issue);
@@ -274,24 +274,25 @@ namespace Vindi
             return FromDynamicTo<Merchant_Users>(result?.merchant_user);
         }
 
-        //
+        //Retorna todas as mensagens.
         public async Task<IEnumerable<Message>> GetByAnythingAsync(Message Message ,IDictionary<FilterSearch, string> query = null, int page = 1, int perPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("messages", query, page, perPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Message>>(list?.messages);
         }
 
-        //
+        //Retorna um mensagem pelo id informado.
         public async Task<Message> GetByIdAnythingAsync(Message Message,Int32 Id) {
             var result = await SearchByIdAsync("messages", Id);
             return FromDynamicTo<Message>(result?.message);
         }
 
-        //
+        //Retorna todas as notificações.
         public async Task<IEnumerable<Notification>> GetByAnythingAsync(Notification Notification ,IDictionary<FilterSearch, string> query = null, int page = 1, int perPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("notifications", query, page, perPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Notification>>(list?.notifications);
         }
 
+        //Retorna uma notificação pelo id informado.
         public async Task<Notification> GetByIdAnythingAsync(Notification Notification ,Int32 Id) {
             var result = await SearchByIdAsync("notifications", Id);
             return FromDynamicTo<Notification>(result?.notification);
