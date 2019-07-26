@@ -310,7 +310,6 @@ namespace Vindi
             return FromDynamicTo<Role>(result?.role);
         }
 
-
         #endregion
 
         #region Post Methods
@@ -370,6 +369,7 @@ namespace Vindi
             var result = await DeleteByIdAndQueryAsync("subscriptions", id, query);
             return FromDynamicTo<Subscription>(result?.subscription);
         }
+
         #endregion
     }
 }
