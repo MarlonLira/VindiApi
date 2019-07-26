@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vindi.Requesters;
 
 namespace Vindi
 {
@@ -28,6 +29,13 @@ namespace Vindi
 
         #region Others
 
+        private async Task<dynamic> DeleteByIdAndQueryAsync(string uri, int id, IDictionary<FilterSearch, string> query = null) {
+            var queryString = QueryString(query);
+            return await $@"{UrlApi}/{uri}/{id}{(string.IsNullOrEmpty(queryString) ? string.Empty : queryString.Substring(1))}"
+                .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
+                .DeleteAsync()
+                .ReceiveJson();
+        }
         private async Task<dynamic> DeleteByIdAsync(string uri, int id)
             => await $@"{UrlApi}/{uri}/{id}"
                 .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
@@ -122,13 +130,13 @@ namespace Vindi
             return FromDynamicTo<Customer>(result?.customer);
         }
 
-        //Retorna todos os cadastros
+        //Retorna todas as assinaturas
         public async Task<IEnumerable<Subscription>> GetByAnythingAsync(Subscription Subscription,IDictionary<FilterSearch, string> query = null, int page = 1, int perPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("subscriptions", query, page, perPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Subscription>>(list?.subscriptions);
         }
 
-        //Retorna o cadastro pelo id informado
+        //Retorna a assinatura pelo id informado
         public async Task<Subscription> GetByIdAnythingAsync(Subscription Subscription ,Int32 Id) {
             var result = await SearchByIdAsync("subscriptions", Id);
             return FromDynamicTo<Subscription>(result?.subscription);
@@ -312,26 +320,55 @@ namespace Vindi
             return FromDynamicTo<Customer>(result?.customer);
         }
 
+        //Cadastra um cliente dinamicamente passando sua entidade(Customer).
+        public async Task<Customer> CreateDynamicAnythingAsync(Customer Customer, dynamic Payload) {
+            var result = await PostByAnythingAsync("customers", Payload);
+            return FromDynamicTo<Customer>(result?.customer);
+        }
+
+        //Faz a requisição de cadastro da assinatura e retorna a assinatura passando a entidade(SubscriptionRequester) 
+        public async Task<Subscription> CreateAnythingAsync(SubscriptionRequester SubscriptionRequester) {
+            var result = await PostByAnythingAsync("subscriptions", SubscriptionRequester);
+            return FromDynamicTo<Subscription>(result?.subscription);
+        }
+
+        //Faz a requisição de cadastro da assinatura dinamicamente e retorna a assinatura passando a entidade(SubscriptionRequester) 
+        public async Task<Subscription> CreateDynamicAnythingAsync(Subscription Subscription, dynamic Payload) {
+            var result = await PostByAnythingAsync("subscriptions", Payload);
+            return FromDynamicTo<Subscription>(result?.subscription);
+        }
 
         #endregion
 
         #region Put Methods
-        //Atualiza um cliente passando seu id e sua entidade(Customer) com os dados a serem atualizado.
+        //Atualiza um cliente passando seu id e sua entidade(Customer) com os dados a serem atualizados.
         public async Task<Customer> UpdateAnythingAsync(Customer Customer, Int32 Id, dynamic Payload) {
             var result = await PutByIdAsync("customers", Id, Payload);
             return FromDynamicTo<Customer>(result?.customer);
         }
+
+        //Atualiza uma assinatura passando seu id e sua entidadade(Subscription) convertida para object com os dados a serem atualizados.
+        public async Task<Subscription> UpdateAnythingAsync(Subscription Subscription, Int32 Id, object Payload) {
+            var result = await PutByIdAsync("subscriptions", Id, Payload);
+            return FromDynamicTo<Subscription>(result?.subscription);
+        }
+
 
         #endregion
 
         #region Delete Methods
 
         //Deleta o Cliente pelo id informado.
-        public async Task<Customer> DeleteAnythingAsync( Customer Customer,Int32 Id) {
+        public async Task<Customer> DeleteAnythingAsync(Customer Customer,Int32 Id) {
             var result = await DeleteByIdAsync("customers", Id);
             return FromDynamicTo<Customer>(result?.customer);
         }
 
+        //Deleta a assinatura pelo id informado.
+        public async Task<Subscription> DeleteAnythingAsync(Subscription Subscription, int id, IDictionary<FilterSearch, string> query = null) {
+            var result = await DeleteByIdAndQueryAsync("subscriptions", id, query);
+            return FromDynamicTo<Subscription>(result?.subscription);
+        }
         #endregion
     }
 }
