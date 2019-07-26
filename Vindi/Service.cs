@@ -26,7 +26,37 @@ namespace Vindi
 
         #endregion
 
-        #region Other Methods
+        #region Others
+
+        private async Task<dynamic> DeleteByIdAsync(string uri, int id)
+            => await $@"{UrlApi}/{uri}/{id}"
+                .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
+                .DeleteAsync()
+                .ReceiveJson();
+
+        private async Task<dynamic> PostByAnythingBodyAsync(string uri, string param, string action)
+            => await $@"{UrlApi}/{uri}/{param}/{action}"
+                .WithBasicAuth(Convert.ToString(Authorization), "")
+                .PostAsync(null)
+                .ReceiveJson();
+
+        private async Task<dynamic> PostByAnythingAsync(string uri, object requster)
+            => await $@"{UrlApi}/{uri}"
+                .WithBasicAuth(Convert.ToString(Authorization), "")
+                .PostJsonAsync(requster)
+                .ReceiveJson();
+
+        private async Task<dynamic> PutByAnythingAsync(string uri, object requster)
+            => await $@"{UrlApi}/{uri}"
+                .WithBasicAuth(Convert.ToString(Authorization), "")
+                .PutJsonAsync(requster)
+                .ReceiveJson();
+
+        private async Task<dynamic> PutByIdAsync(string uri, int id, object requester)
+            => await $@"{UrlApi}/{uri}/{id}"
+                .WithBasicAuth(Convert.ToString(Authorization), "")
+                .PutJsonAsync(requester).ReceiveJson();
+        
         private static T FromDynamicTo<T>(dynamic d) where T : class {
             var p = JsonConvert.SerializeObject(d);
             if (p.StartsWith("["))
@@ -276,13 +306,31 @@ namespace Vindi
 
         #region Post Methods
 
+        //Cadastra um cliente passando sua entidade (Customer).
+        public async Task<Customer> CreateAnythingAsync(Customer Customer) {
+            var result = await PostByAnythingAsync("customers", Customer);
+            return FromDynamicTo<Customer>(result?.customer);
+        }
+
+
         #endregion
 
         #region Put Methods
+        //Atualiza um cliente passando seu id e sua entidade(Customer) com os dados a serem atualizado.
+        public async Task<Customer> UpdateAnythingAsync(Customer Customer, Int32 Id, dynamic Payload) {
+            var result = await PutByIdAsync("customers", Id, Payload);
+            return FromDynamicTo<Customer>(result?.customer);
+        }
 
         #endregion
 
         #region Delete Methods
+
+        //Deleta o Cliente pelo id informado.
+        public async Task<Customer> DeleteAnythingAsync( Customer Customer,Int32 Id) {
+            var result = await DeleteByIdAsync("customers", Id);
+            return FromDynamicTo<Customer>(result?.customer);
+        }
 
         #endregion
     }
