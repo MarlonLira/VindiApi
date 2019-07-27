@@ -19,3 +19,14 @@ C:\Users\Academia Brilhante\Desktop\API\Vindi\obj\Debug\netcoreapp2.1\Vindi.Asse
 C:\Users\Academia Brilhante\Desktop\API\Vindi\obj\Debug\netcoreapp2.1\Vindi.AssemblyInfo.cs
 C:\Users\Academia Brilhante\Desktop\API\Vindi\obj\Debug\netcoreapp2.1\Vindi.dll
 C:\Users\Academia Brilhante\Desktop\API\Vindi\obj\Debug\netcoreapp2.1\Vindi.pdb
+C:\Web\Api\VindiApi\Vindi\bin\Debug\netcoreapp2.1\Vindi.deps.json
+C:\Web\Api\VindiApi\Vindi\bin\Debug\netcoreapp2.1\Vindi.runtimeconfig.json
+C:\Web\Api\VindiApi\Vindi\bin\Debug\netcoreapp2.1\Vindi.runtimeconfig.dev.json
+C:\Web\Api\VindiApi\Vindi\bin\Debug\netcoreapp2.1\Vindi.dll
+C:\Web\Api\VindiApi\Vindi\bin\Debug\netcoreapp2.1\Vindi.pdb
+C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.csprojAssemblyReference.cache
+C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.csproj.CoreCompileInputs.cache
+C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.AssemblyInfoInputs.cache
+C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.AssemblyInfo.cs
+C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.dll
+C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.pdb
