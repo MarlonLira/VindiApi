@@ -8,8 +8,7 @@ namespace Vindi
 {
     public static class DynamicExtensions
     {
-
-     //   public static T FromDynamic<T>(this dynamic d, Type type) => (T)Convert.ChangeType(d, type);
+        #region Methods
 
         public static T FromDynamic<T>(this IDictionary<string, object> dictionary)
         {
@@ -37,5 +36,7 @@ namespace Vindi
             }
             return expando as ExpandoObject;
         }
+
+        #endregion
     }
 }

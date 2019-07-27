@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vindi
+﻿namespace Vindi
 {
     class Configuration
     {
+        #region Constructor
+
         public Configuration(string urlApi, int version, string authorization) {
             UrlApi = urlApi;
             Version = version;
             Authorization = authorization;
         }
 
-        public string UrlApi { get; }
-        public int Version { get; }
-        public string Authorization { get; }
+        #endregion
+
+        #region Atributes
+        public string UrlApi { get; set; }
+        public int Version { get; set; }
+        public string Authorization { get; set; }
+
+        #endregion
     }
 }
