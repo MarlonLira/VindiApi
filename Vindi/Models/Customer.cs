@@ -1,20 +1,44 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class Customer
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public string registry_code { get; set; }
-        public string code { get; set; }
-        public string notes { get; set; }
-        public string status { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
-        public object metadata { get; set; }
-        public Address address { get; set; }
-        public Phone[] phones { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("registry_code")]
+        public string RegistryCode { get; set; }
+
+        [JsonProperty("code")]
+        public string Code { get; set; }
+
+        [JsonProperty("notes")]
+        public string Notes { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+
+        [JsonProperty("metadata")]
+        public object Metadata { get; set; }
+
+        [JsonProperty("address")]
+        public Address Address { get; set; }
+
+        [JsonProperty("phones")]
+        public Phone[] Phones { get; set; }
     }
 }

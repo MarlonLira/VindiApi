@@ -74,8 +74,9 @@ namespace Vindi
 
         private static string QueryString(IDictionary<FilterSearch, String> Query)
             => Query != null ? $"&query={String.Join(" ", Query.Select(x => $"{x.Key.ToString()}:{x.Value}"))}" : String.Empty;
-        private async Task<dynamic> SearchByAnythingAsync(String uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc)
-            => await $@"{UrlApi}/{uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
+
+        private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc)
+            => await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
                 .WithBasicAuth(Convert.ToString(Authorization), "")
                 .GetJsonAsync();
 
@@ -126,7 +127,7 @@ namespace Vindi
 
         //Retorna o cliente pelo id informado
         public async Task<Customer> GetByIdAnythingAsync(Customer Customer) {
-            var result = await SearchByIdAsync("customers", Customer.id);
+            var result = await SearchByIdAsync("customers", Customer.Id);
             return FromDynamicTo<Customer>(result?.customer);
         }
 
@@ -346,7 +347,7 @@ namespace Vindi
         //Atualiza um cliente passando sua entidade(Customer) com os dados a serem atualizados.
         public async Task<Customer> UpdateAnythingAsync(Customer CustomerEdit){
             dynamic Payload = CustomerEdit;
-            var result = await PutByIdAsync("customers", CustomerEdit.id, Payload);
+            var result = await PutByIdAsync("customers", CustomerEdit.Id, Payload);
             return FromDynamicTo<Customer>(result?.customer);
         }
 
@@ -364,7 +365,7 @@ namespace Vindi
 
         //Deleta o Cliente pelo id informado.
         public async Task<Customer> DeleteAnythingAsync(Customer DeleteCustomer) {
-            var result = await DeleteByIdAsync("customers", DeleteCustomer.id);
+            var result = await DeleteByIdAsync("customers", DeleteCustomer.Id);
             return FromDynamicTo<Customer>(result?.customer);
         }
 

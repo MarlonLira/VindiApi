@@ -1,8 +1,11 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class Phone
     {
-        public string phone_type { get; set; }
+        [JsonProperty("phone_type")]
+        public string PhoneType { get; set; }
         public string number { get; set; }
         public string extension { get; set; }
     }
