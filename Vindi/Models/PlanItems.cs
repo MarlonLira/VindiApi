@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vindi
 {
-    public class Plan_Items
+    public class PlanItems
     {
         public int id { get; set; }
         public Product product { get; set; }

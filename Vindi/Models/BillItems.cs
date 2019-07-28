@@ -2,7 +2,7 @@
 
 namespace Vindi
 {
-    public class Bill_Items
+    public class BillItems
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -20,13 +20,13 @@ namespace Vindi
         public object Description { get; set; }
 
         [JsonProperty("pricing_schema")]
-        public Pricing_Schema PricingSchema { get; set; }
+        public PricingSchema PricingSchema { get; set; }
 
         [JsonProperty("product")]
         public Product Product { get; set; }
 
         [JsonProperty("product_item")]
-        public Product_Items ProductItem { get; set; }
+        public ProductItems ProductItem { get; set; }
 
         [JsonProperty("discount")]
         public object Discount { get; set; }

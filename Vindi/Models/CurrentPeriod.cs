@@ -2,7 +2,7 @@
 
 namespace Vindi
 {
-    public class Current_Period
+    public class CurrentPeriod
     {
         public int id { get; set; }
         public DateTime billing_at { get; set; }

@@ -40,7 +40,7 @@ namespace Vindi
         public DateTime UpdatedAt { get; set; }
 
         [JsonProperty("bill_items")]
-        public Bill_Items[] BillItems { get; set; }
+        public BillItems[] BillItems { get; set; }
 
         [JsonProperty("charges")]
         public Charge[] Charges { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vindi
 {
-    public class Merchant_Users
+    public class MerchantUsers
     {
         public int id { get; set; }
         public string status { get; set; }

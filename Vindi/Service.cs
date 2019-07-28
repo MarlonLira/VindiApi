@@ -102,9 +102,9 @@ namespace Vindi
         }
 
         //Retorna o item do produto pelo id informado
-        public async Task<Product_Items> GetByIdAnythingAsync(Product_Items ProductItems) {
+        public async Task<ProductItems> GetByIdAnythingAsync(ProductItems ProductItems) {
             var result = await SearchByIdAsync("product_items", ProductItems.id);
-            return FromDynamicTo<Product_Items>(result?.product_item);
+            return FromDynamicTo<ProductItems>(result?.product_item);
         }
 
         //Retorna todos os Planos
@@ -156,27 +156,27 @@ namespace Vindi
         }
 
         //Retorna todos os metodos de Pagamento
-        public async Task<IEnumerable<Payment_Methods>> GetByAnythingAsync(Payment_Methods PaymentMethods,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<PaymentMethods>> GetByAnythingAsync(PaymentMethods PaymentMethods,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("payment_methods", Query, Page, PerPage, filterSearch, sortOrder);
-            return FromDynamicTo<IEnumerable<Payment_Methods>>(list?.payment_methods);
+            return FromDynamicTo<IEnumerable<PaymentMethods>>(list?.payment_methods);
         }
 
         //Retorna o metodo de Pagamento pelo id informado
-        public async Task<Payment_Methods> GetByIdAnythingAsync(Payment_Methods PaymentMethods) {
+        public async Task<PaymentMethods> GetByIdAnythingAsync(PaymentMethods PaymentMethods) {
             var result = await SearchByIdAsync("payment_methods", PaymentMethods.id);
-            return FromDynamicTo<Payment_Methods>(result?.payment_method);
+            return FromDynamicTo<PaymentMethods>(result?.payment_method);
         }
 
         //Retorna todos os perfis de pagamento
-        public async Task<IEnumerable<Payment_Profile>> GetByAnythingAsync(Payment_Profile PaymentProfile,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<PaymentProfile>> GetByAnythingAsync(PaymentProfile PaymentProfile,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("payment_profiles", Query, Page, PerPage, filterSearch, sortOrder);
-            return FromDynamicTo<IEnumerable<Payment_Profile>>(list?.payment_profiles);
+            return FromDynamicTo<IEnumerable<PaymentProfile>>(list?.payment_profiles);
         }
 
         //Retorna o perfil de pagamento pelo id informado
-        public async Task<Payment_Profile> GetByIdAnythingAsync(Payment_Profile PaymentProfile) {
+        public async Task<PaymentProfile> GetByIdAnythingAsync(PaymentProfile PaymentProfile) {
             var result = await SearchByIdAsync("payment_profiles", PaymentProfile.id);
-            return FromDynamicTo<Payment_Profile>(result?.payment_profile);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
         }
 
         //Retorna todas as cobranças
@@ -199,14 +199,14 @@ namespace Vindi
 
         //Retorna a faturas pelo id informado
         public async Task<Bill> GetByIdAnythingAsync(Bill Bill) {
-            var result = await SearchByIdAsync("bills", Bill.id);
+            var result = await SearchByIdAsync("bills", Bill.Id);
             return FromDynamicTo<Bill>(result?.bill);
         }
 
         //Retorna o item da fatura pelo id do item informado
-        public async Task<Bill_Items> GetByIdAnythingAsync(Bill_Items Bill_Items) {
-            var result = await SearchByIdAsync("bill_items", Bill_Items.id);
-            return FromDynamicTo<Bill_Items>(result?.bill_item);
+        public async Task<BillItems> GetByIdAnythingAsync(BillItems Bill_Items) {
+            var result = await SearchByIdAsync("bill_items", Bill_Items.Id);
+            return FromDynamicTo<BillItems>(result?.bill_item);
         }
 
         //Retorna o Desconto pelo id informado.
@@ -216,15 +216,15 @@ namespace Vindi
         }
 
         //Retorna todos os lotes de importação.
-        public async Task<IEnumerable<Import_Batche>> GetByAnythingAsync(Import_Batche ImportBatche, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<ImportBatche>> GetByAnythingAsync(ImportBatche ImportBatche, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("import_batches", Query, Page, PerPage, filterSearch, sortOrder);
-            return FromDynamicTo<IEnumerable<Import_Batche>>(list?.import_batches);
+            return FromDynamicTo<IEnumerable<ImportBatche>>(list?.import_batches);
         }
 
         //Retorna o lote de importação pelo id informado.
-        public async Task<Import_Batche> GetByIdAnythingAsync(Import_Batche ImportBatche) {
+        public async Task<ImportBatche> GetByIdAnythingAsync(ImportBatche ImportBatche) {
             var result = await SearchByIdAsync("import_batches", ImportBatche.id);
-            return FromDynamicTo<Import_Batche>(result?.import_batche);
+            return FromDynamicTo<ImportBatche>(result?.import_batche);
         }
 
         //Retorna todas as notas fiscais.
@@ -264,15 +264,15 @@ namespace Vindi
         }
 
         //Retorna todos os usuarios associados cadastrados.
-        public async Task<IEnumerable<Merchant_Users>> GetByAnythingAsync(Merchant_Users MerchantUsers, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<MerchantUsers>> GetByAnythingAsync(MerchantUsers MerchantUsers, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("merchant_users", Query, Page, PerPage, filterSearch, sortOrder);
-            return FromDynamicTo<IEnumerable<Merchant_Users>>(list?.merchant_users);
+            return FromDynamicTo<IEnumerable<MerchantUsers>>(list?.merchant_users);
         }
 
         //Retorna os usuarios associados pelo id informado.
-        public async Task<Merchant_Users> GetByIdAnythingAsync(Merchant_Users MerchantUsers) {
+        public async Task<MerchantUsers> GetByIdAnythingAsync(MerchantUsers MerchantUsers) {
             var result = await SearchByIdAsync("merchant_users", MerchantUsers.id);
-            return FromDynamicTo<Merchant_Users>(result?.merchant_user);
+            return FromDynamicTo<MerchantUsers>(result?.merchant_user);
         }
 
         //Retorna todas as mensagens.

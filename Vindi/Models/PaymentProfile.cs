@@ -2,7 +2,7 @@
 
 namespace Vindi
 {
-    public class Payment_Profile
+    public class PaymentProfile
     {
         public int id { get; set; }
         public string status { get; set; }
@@ -18,8 +18,8 @@ namespace Vindi
         public string type { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
-        public Payment_Company payment_company { get; set; }
-        public Payment_Methods payment_method { get; set; }
+        public PaymentCompany payment_company { get; set; }
+        public PaymentMethods payment_method { get; set; }
         public Customer customer { get; set; }
     }
 }

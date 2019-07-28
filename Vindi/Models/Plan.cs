@@ -19,7 +19,7 @@ namespace Vindi
         public string interval_name { get; set; }
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
-        public Plan_Items[] plan_items { get; set; }
+        public PlanItems[] plan_items { get; set; }
         public Object metadata { get; set; }
     }
 }

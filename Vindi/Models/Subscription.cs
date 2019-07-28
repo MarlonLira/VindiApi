@@ -22,10 +22,10 @@ namespace Vindi
         public DateTime? updated_at { get; set; }
         public Customer customer { get; set; }
         public Plan plan { get; set; }
-        public Product_Items[] product_items { get; set; }
-        public Payment_Methods payment_method { get; set; }
-        public Current_Period current_period { get; set; }
+        public ProductItems[] product_items { get; set; }
+        public PaymentMethods payment_method { get; set; }
+        public CurrentPeriod current_period { get; set; }
         public object metadata { get; set; }
-        public Payment_Profile payment_profile { get; set; }
+        public PaymentProfile payment_profile { get; set; }
     }
 }

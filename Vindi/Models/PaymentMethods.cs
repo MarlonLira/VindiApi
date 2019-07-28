@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vindi
 {
-    public class Payment_Methods
+    public class PaymentMethods
     {
         public int id { get; set; }
         public string public_name { get; set; }
@@ -15,7 +15,7 @@ namespace Vindi
         public Settings settings { get; set; }
         public string set_subscription_on_success { get; set; }
         public bool allow_as_alternative { get; set; }
-        public Payment_Companies[] payment_companies { get; set; }
+        public PaymentCompanies[] payment_companies { get; set; }
         public int? maximum_attempts { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
