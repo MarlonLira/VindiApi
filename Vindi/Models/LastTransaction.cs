@@ -2,7 +2,7 @@
 
 namespace Vindi
 {
-    public class Last_Transaction
+    public class LastTransaction
     {
         public int id { get; set; }
         public string transaction_type { get; set; }
@@ -13,12 +13,12 @@ namespace Vindi
         public object gateway_response_code { get; set; }
         public string gateway_authorization { get; set; }
         public string gateway_transaction_id { get; set; }
-        public Gateway_Response_Fields gateway_response_fields { get; set; }
+        public GatewayResponseFields gateway_response_fields { get; set; }
         public object fraud_detector_score { get; set; }
         public object fraud_detector_status { get; set; }
         public object fraud_detector_id { get; set; }
         public DateTime? created_at { get; set; }
         public Gateway gateway { get; set; }
-        public Payment_Profile payment_profile { get; set; }
+        public PaymentProfile payment_profile { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Vindi
 {
-    public class Product_Items
+    public class ProductItems
     {
         public int id { get; set; }
         public int? product_id { get; set; }
@@ -12,7 +12,7 @@ namespace Vindi
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public Product product { get; set; }
-        public Pricing_Schema pricing_schema { get; set; }
+        public PricingSchema pricing_schema { get; set; }
         public object[] discounts { get; set; }
     }
 }

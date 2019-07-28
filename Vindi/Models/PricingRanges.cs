@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vindi
 {
-    public class Pricing_Ranges
+    public class PricingRanges
     {
         public string id { get; set; }
         public int? start_quantity { get; set; }

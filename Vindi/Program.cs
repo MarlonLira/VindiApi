@@ -11,15 +11,15 @@ namespace Vindi
             Service Service = new Service(Config);
 
             var customers = Service.GetByAnythingAsync(new Customer()).GetAwaiter().GetResult();
-            var merchant_Users = Service.GetByAnythingAsync(new Merchant_Users()).GetAwaiter().GetResult();
+            var merchant_Users = Service.GetByAnythingAsync(new MerchantUsers()).GetAwaiter().GetResult();
             var roles = Service.GetByAnythingAsync(new Role()).GetAwaiter().GetResult();
             List<Customer> Test = (List<Customer>)customers;
-            IList<Merchant_Users> Users = (IList<Merchant_Users>)merchant_Users;
+            IList<MerchantUsers> Users = (IList<MerchantUsers>)merchant_Users;
             IList<Role> Lroles = (IList<Role>)roles;
             foreach (Customer Entite in Test) {
                 Console.WriteLine("id: " + Entite.Id + " Name: " + Entite.Name + " Cpf: " + Entite.RegistryCode);
             }
-            foreach (Merchant_Users User in Users) {
+            foreach (MerchantUsers User in Users) {
                 Console.WriteLine("id: " + User.id + " Name: " + User.user + " Status: " + User.status);
             }
             foreach (Role RUser in Lroles) {

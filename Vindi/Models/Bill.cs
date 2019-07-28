@@ -1,29 +1,67 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
 
     public class Bill
     {
-        public int id { get; set; }
-        public object code { get; set; }
-        public string amount { get; set; }
-        public int? installments { get; set; }
-        public string status { get; set; }
-        public object seen_at { get; set; }
-        public object billing_at { get; set; }
-        public DateTime? due_at { get; set; }
-        public string url { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-        public Bill_Items[] bill_items { get; set; }
-        public Charge[] charges { get; set; }
-        public Customer customer { get; set; }
-        public Period period { get; set; }
-        public Subscription subscription { get; set; }
-        public object metadata { get; set; }
-        public object payment_profile { get; set; }
-        public object payment_condition { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("code")]
+        public object Code { get; set; }
+
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
+
+        [JsonProperty("installments")]
+        public int? Installments { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("seen_at")]
+        public object SeenAt { get; set; }
+
+        [JsonProperty("billing_at")]
+        public object BillingAt { get; set; }
+
+        [JsonProperty("due_at")]
+        public DateTime? DueAt { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime UpdatedAt { get; set; }
+
+        [JsonProperty("bill_items")]
+        public BillItems[] BillItems { get; set; }
+
+        [JsonProperty("charges")]
+        public Charge[] Charges { get; set; }
+
+        [JsonProperty("customer")]
+        public Customer Customer { get; set; }
+
+        [JsonProperty("period")]
+        public Period Period { get; set; }
+
+        [JsonProperty("subscription")]
+        public Subscription Subscription { get; set; }
+
+        [JsonProperty("metadata")]
+        public object Metadata { get; set; }
+
+        [JsonProperty("payment_profile")]
+        public object PaymentProfile { get; set; }
+
+        [JsonProperty("payment_condition")]
+        public object PaymentCondition { get; set; }
     }
 
 }

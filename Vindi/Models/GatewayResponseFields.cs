@@ -1,6 +1,6 @@
 ﻿namespace Vindi
 {
-    public class Gateway_Response_Fields
+    public class GatewayResponseFields
     {
         public string id { get; set; }
         public State state { get; set; }

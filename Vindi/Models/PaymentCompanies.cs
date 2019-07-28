@@ -1,6 +1,6 @@
 ﻿namespace Vindi
 {
-    public class Payment_Company
+    public class PaymentCompanies
     {
         public int id { get; set; }
         public string name { get; set; }

@@ -15,7 +15,7 @@ namespace Vindi
         public string status { get; set; }
         public string created_at { get; set; }
         public string updated_at { get; set; }
-        public Product_Items product_item { get; set; }
+        public ProductItems product_item { get; set; }
     }
 
 }
