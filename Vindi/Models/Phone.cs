@@ -6,7 +6,11 @@ namespace Vindi
     {
         [JsonProperty("phone_type")]
         public string PhoneType { get; set; }
-        public string number { get; set; }
-        public string extension { get; set; }
+
+        [JsonProperty("number")]
+        public string Number { get; set; }
+
+        [JsonProperty("extension")]
+        public string Extension { get; set; }
     }
 }
