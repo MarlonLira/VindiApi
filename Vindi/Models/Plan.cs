@@ -1,25 +1,59 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class Plan
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string interval { get; set; }
-        public int? interval_count { get; set; }
-        public string billing_trigger_type { get; set; }
-        public int? billing_trigger_day { get; set; }
-        public int? billing_cycles { get; set; }
-        public object code { get; set; }
-        public string description { get; set; }
-        public string status { get; set; }
-        public int? installments { get; set; }
-        public bool invoice_split { get; set; }
-        public string interval_name { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-        public PlanItems[] plan_items { get; set; }
-        public Object metadata { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("interval")]
+        public string Interval { get; set; }
+
+        [JsonProperty("interval_count")]
+        public int? IntervalCount { get; set; }
+
+        [JsonProperty("billing_trigger_type")]
+        public string BillingTriggerType { get; set; }
+
+        [JsonProperty("billing_trigger_day")]
+        public int? BillingTriggerDay { get; set; }
+
+        [JsonProperty("billing_cycles")]
+        public int? BillingCycles { get; set; }
+
+        [JsonProperty("code")]
+        public object Code { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("installments")]
+        public int? Installments { get; set; }
+
+        [JsonProperty("invoice_split")]
+        public bool InvoiceSplit { get; set; }
+
+        [JsonProperty("interval_name")]
+        public string IntervalName { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime UpdatedAt { get; set; }
+
+        [JsonProperty("plan_items")]
+        public PlanItems[] PlanItems { get; set; }
+
+        [JsonProperty("metadata")]
+        public Object Metadata { get; set; }
     }
 }

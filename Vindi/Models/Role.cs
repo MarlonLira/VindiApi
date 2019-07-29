@@ -1,10 +1,16 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class Role
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string base_role { get; set; }
-    }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("base_role")]
+        public string BaseRole { get; set; }
+    }
 }

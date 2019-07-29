@@ -1,8 +1,13 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class State
     {
-        public string name { get; set; }
-        public string code { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("code")]
+        public string Code { get; set; }
     }
 }

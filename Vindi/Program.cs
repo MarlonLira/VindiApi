@@ -20,10 +20,10 @@ namespace Vindi
                 Console.WriteLine("id: " + Entite.Id + " Name: " + Entite.Name + " Cpf: " + Entite.RegistryCode);
             }
             foreach (MerchantUsers User in Users) {
-                Console.WriteLine("id: " + User.id + " Name: " + User.user + " Status: " + User.status);
+                Console.WriteLine("id: " + User.Id + " Name: " + User.User + " Status: " + User.Status);
             }
             foreach (Role RUser in Lroles) {
-                Console.WriteLine("id: " + RUser.id + " Name: " + RUser.name + " Status: " + RUser.base_role);
+                Console.WriteLine("id: " + RUser.Id + " Name: " + RUser.Name + " Status: " + RUser.BaseRole);
             }
             /*
 

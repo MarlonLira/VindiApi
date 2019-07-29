@@ -1,18 +1,38 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class ProductItems
     {
-        public int id { get; set; }
-        public int? product_id { get; set; }
-        public string status { get; set; }
-        public object cycles { get; set; }
-        public int? quantity { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
-        public Product product { get; set; }
-        public PricingSchema pricing_schema { get; set; }
-        public object[] discounts { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("product_id")]
+        public int? ProductId { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("cycles")]
+        public object Cycles { get; set; }
+
+        [JsonProperty("quantity")]
+        public int? Quantity { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+
+        [JsonProperty("product")]
+        public Product Product { get; set; }
+
+        [JsonProperty("pricing_schema")]
+        public PricingSchema PricingSchema { get; set; }
+
+        [JsonProperty("discounts")]
+        public object[] Discounts { get; set; }
     }
 }

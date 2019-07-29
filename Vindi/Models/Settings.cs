@@ -1,26 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace Vindi
 {
     public class Settings
     {
-        public bool automatic_bill_charge { get; set; }
-        public object due_days { get; set; }
-        public bool require_gateway { get; set; }
-        public string bank_slip_type { get; set; }
-        public string branch { get; set; }
-        public string format { get; set; }
-        public string additional_instructions { get; set; }
-        public string account { get; set; }
-        public string contract_number { get; set; }
-        public string payment_company_id { get; set; }
-        public bool dynamic { get; set; }
-        public bool require_registration { get; set; }
-        public bool defer_registration { get; set; }
-        public string document_type { get; set; }
-        public bool voidable { get; set; }
-    }
+        [JsonProperty("automatic_bill_charge")]
+        public bool AutomaticBillCharge { get; set; }
 
+        [JsonProperty("due_days")]
+        public object DueDays { get; set; }
+
+        [JsonProperty("require_gateway")]
+        public bool RequireGateway { get; set; }
+
+        [JsonProperty("bank_slip_type")]
+        public string BankSlipType { get; set; }
+
+        [JsonProperty("branch")]
+        public string Branch { get; set; }
+
+        [JsonProperty("format")]
+        public string Format { get; set; }
+
+        [JsonProperty("additional_instructions")]
+        public string AdditionalInstructions { get; set; }
+
+        [JsonProperty("account")]
+        public string Account { get; set; }
+
+        [JsonProperty("contract_number")]
+        public string ContractNumber { get; set; }
+
+        [JsonProperty("payment_company_id")]
+        public string PaymentCompanyId { get; set; }
+
+        [JsonProperty("dynamic")]
+        public bool Dynamic { get; set; }
+
+        [JsonProperty("require_registration")]
+        public bool RequireRegistration { get; set; }
+
+        [JsonProperty("defer_registration")]
+        public bool DeferRegistration { get; set; }
+
+        [JsonProperty("document_type")]
+        public string DocumentType { get; set; }
+
+        [JsonProperty("voidable")]
+        public bool Voidable { get; set; }
+    }
 }

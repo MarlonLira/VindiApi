@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace Vindi
 {
     public class PricingRanges
     {
-        public string id { get; set; }
-        public int? start_quantity { get; set; }
-        public int? end_quantity { get; set; }
-        public int? price { get; set; }
-        public int? overage_price { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("start_quantity")]
+        public int? StartQuantity { get; set; }
+
+        [JsonProperty("end_quantity")]
+        public int? EndQuantity { get; set; }
+
+        [JsonProperty("price")]
+        public int? Price { get; set; }
+
+        [JsonProperty("overage_price")]
+        public int? OveragePrice { get; set; }
     }
 }

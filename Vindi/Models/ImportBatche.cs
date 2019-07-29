@@ -1,15 +1,34 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class ImportBatche
     {
-        public int id { get; set; }
-        public string status { get; set; }
-        public int? batch_file_name { get; set; }
-        public int? batch_file_size { get; set; }
-        public int? batch_fingerprint { get; set; }
-        public string url { get; set; }
-        public string created_at { get; set; }
-        public string updated_at { get; set; }
-        public PaymentMethods payment_method { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("batch_file_name")]
+        public int? BatchFileName { get; set; }
+
+        [JsonProperty("batch_file_size")]
+        public int? BatchFileSize { get; set; }
+
+        [JsonProperty("batch_fingerprint")]
+        public int? BatchFingerprint { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public string UpdatedAt { get; set; }
+
+        [JsonProperty("payment_method")]
+        public PaymentMethods PaymentMethod { get; set; }
     }
 }

@@ -1,15 +1,34 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class Issue
     {
-        public int id { get; set; }
-        public string issue_type { get; set; }
-        public string status { get; set; }
-        public string item_type { get; set; }
-        public string item_id { get; set; }
-        public string data { get; set; }
-        public string created_at { get; set; }
-        public string updated_at { get; set; }
-        public Customer customer { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("issue_type")]
+        public string IssueType { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("item_type")]
+        public string ItemType { get; set; }
+
+        [JsonProperty("item_id")]
+        public string ItemId { get; set; }
+
+        [JsonProperty("data")]
+        public string Data { get; set; }
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public string UpdatedAt { get; set; }
+
+        [JsonProperty("customer")]
+        public Customer Customer { get; set; }
     }
 }

@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class PlanItems
     {
-        public int id { get; set; }
-        public Product product { get; set; }
-        public object cycles { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("product")]
+        public Product Product { get; set; }
+
+        [JsonProperty("cycles")]
+        public object Cycles { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
     }
 }
