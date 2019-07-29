@@ -1,8 +1,13 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class Gateway
     {
-        public int id { get; set; }
-        public string connector { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("connector")]
+        public string Connector { get; set; }
     }
 }

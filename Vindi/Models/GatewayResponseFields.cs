@@ -1,14 +1,28 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class GatewayResponseFields
     {
-        public string id { get; set; }
-        public State state { get; set; }
-        public string print_url { get; set; }
-        public string charge_id { get; set; }
-        public string barcode { get; set; }
-        public string typeable_barcode { get; set; }
-        public string nsu { get; set; }
-    }
+        [JsonProperty("id")]
+        public string Id { get; set; }
 
+        [JsonProperty("state")]
+        public State State { get; set; }
+
+        [JsonProperty("print_url")]
+        public string PrintUrl { get; set; }
+
+        [JsonProperty("charge_id")]
+        public string ChargeId { get; set; }
+
+        [JsonProperty("barcode")]
+        public string Barcode { get; set; }
+
+        [JsonProperty("typeable_barcode")]
+        public string TypeableBarcode { get; set; }
+
+        [JsonProperty("nsu")]
+        public string Nsu { get; set; }
+    }
 }

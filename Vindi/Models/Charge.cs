@@ -1,23 +1,53 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class Charge
     {
-        public int id { get; set; }
-        public string amount { get; set; }
-        public string status { get; set; }
-        public DateTime? due_at { get; set; }
-        public DateTime? paid_at { get; set; }
-        public int? installments { get; set; }
-        public int? attempt_count { get; set; }
-        public object next_attempt { get; set; }
-        public object print_url { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
-        public LastTransaction last_transaction { get; set; }
-        public PaymentMethods payment_method { get; set; }
-        public Bill bill { get; set; }
-        public Customer customer { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("due_at")]
+        public DateTime? DueAt { get; set; }
+
+        [JsonProperty("paid_at")]
+        public DateTime? PaidAt { get; set; }
+
+        [JsonProperty("installments")]
+        public int? Installments { get; set; }
+
+        [JsonProperty("attempt_count")]
+        public int? AttemptCount { get; set; }
+
+        [JsonProperty("next_attempt")]
+        public object NextAttempt { get; set; }
+
+        [JsonProperty("print_url")]
+        public object PrintUrl { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+
+        [JsonProperty("last_transaction")]
+        public LastTransaction LastTransaction { get; set; }
+
+        [JsonProperty("payment_method")]
+        public PaymentMethods PaymentMethod { get; set; }
+
+        [JsonProperty("bill")]
+        public Bill Bill { get; set; }
+
+        [JsonProperty("customer")]
+        public Customer Customer { get; set; }
     }
 }
