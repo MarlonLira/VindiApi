@@ -1,5 +1,4 @@
-﻿using Vindi;
-
+﻿using Newtonsoft.Json;
 
 namespace Vindi.Requesters
 {
@@ -7,14 +6,21 @@ namespace Vindi.Requesters
     {
         #region Atributes
 
-        public int product_id { get; set; }
-        public int subscription_id { get; set; }
-        public int cycles { get; set; }
-        public int quantity { get; set; }
-        public PricingSchema pricing_schema { get; set; }
+        [JsonProperty("product_id")]
+        public int ProductId { get; set; }
+
+        [JsonProperty("subscription_id")]
+        public int SubscriptionId { get; set; }
+
+        [JsonProperty("cycles")]
+        public int Cycles { get; set; }
+
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
+
+        [JsonProperty("pricing_schema")]
+        public PricingSchema PricingSchema { get; set; }
 
         #endregion
     }
-
-
 }
