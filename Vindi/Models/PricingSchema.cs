@@ -1,16 +1,29 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class PricingSchema
     {
-        public int id { get; set; }
-        public string short_format { get; set; }
-        public string price { get; set; }
-        public object minimum_price { get; set; }
-        public string schema_type { get; set; }
-        public PricingRanges[] pricing_ranges { get; set; }
-        public DateTime? created_at { get; set; }
-    }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
+        [JsonProperty("short_format")]
+        public string ShortFormat { get; set; }
+
+        [JsonProperty("price")]
+        public string Price { get; set; }
+
+        [JsonProperty("minimum_price")]
+        public object MinimumPrice { get; set; }
+
+        [JsonProperty("schema_type")]
+        public string SchemaType { get; set; }
+
+        [JsonProperty("pricing_ranges")]
+        public PricingRanges[] PricingRanges { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+    }
 }
