@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class MerchantUsers
     {
-        public int id { get; set; }
-        public string status { get; set; }
-        public DateTime? last_sign_in_at { get; set; }
-        public User user { get; set; }
-        public Role role { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("last_sign_in_at")]
+        public DateTime? LastSignInAt { get; set; }
+
+        [JsonProperty("user")]
+        public User User { get; set; }
+
+        [JsonProperty("role")]
+        public Role Role { get; set; }
     }
 }

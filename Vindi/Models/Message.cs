@@ -1,15 +1,29 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class Message
     {
-        public int id { get; set; }
-        public string notification_type { get; set; }
-        public object seen_at { get; set; }
-        public DateTime? created_at { get; set; }
-        public Customer customer { get; set; }
-        public Charge charge { get; set; }
-        public Notification notification { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("notification_type")]
+        public string NotificationType { get; set; }
+
+        [JsonProperty("seen_at")]
+        public object SeenAt { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("customer")]
+        public Customer Customer { get; set; }
+
+        [JsonProperty("charge")]
+        public Charge Charge { get; set; }
+
+        [JsonProperty("notification")]
+        public Notification Notification { get; set; }
     }
 }
