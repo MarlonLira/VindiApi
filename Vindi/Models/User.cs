@@ -1,13 +1,23 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class User
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public string status { get; set; }
-        public DateTime? created_at { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
     }
 }
