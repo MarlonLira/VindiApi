@@ -97,13 +97,13 @@ namespace Vindi
 
         //Retorna o produto pelo id informado
         public async Task<Product> GetByIdAnythingAsync(Product Product) {
-            var result = await SearchByIdAsync("products", Product.id);
+            var result = await SearchByIdAsync("products", Product.Id);
             return FromDynamicTo<Product>(result?.product);
         }
 
         //Retorna o item do produto pelo id informado
         public async Task<ProductItems> GetByIdAnythingAsync(ProductItems ProductItems) {
-            var result = await SearchByIdAsync("product_items", ProductItems.id);
+            var result = await SearchByIdAsync("product_items", ProductItems.Id);
             return FromDynamicTo<ProductItems>(result?.product_item);
         }
 
@@ -115,7 +115,7 @@ namespace Vindi
 
         //Retorna o plano pelo id informado
         public async Task<Plan> GetByIdAnythingAsync(Plan Plan) {
-            var result = await SearchByIdAsync("plans", Plan.id);
+            var result = await SearchByIdAsync("plans", Plan.Id);
             return FromDynamicTo<Plan>(result?.plan);
         }
 
@@ -139,7 +139,7 @@ namespace Vindi
 
         //Retorna a assinatura pelo id informado
         public async Task<Subscription> GetByIdAnythingAsync(Subscription Subscription) {
-            var result = await SearchByIdAsync("subscriptions", Subscription.id);
+            var result = await SearchByIdAsync("subscriptions", Subscription.Id);
             return FromDynamicTo<Subscription>(result?.subscription);
         }
 
@@ -151,7 +151,7 @@ namespace Vindi
 
         //Retorna o periodo pelo id informado
         public async Task<Period> GetByIdAnythingAsync(Period Period) {
-            var result = await SearchByIdAsync("periods", Period.id);
+            var result = await SearchByIdAsync("periods", Period.Id);
             return FromDynamicTo<Period>(result?.period);
         }
 
@@ -163,7 +163,7 @@ namespace Vindi
 
         //Retorna o metodo de Pagamento pelo id informado
         public async Task<PaymentMethods> GetByIdAnythingAsync(PaymentMethods PaymentMethods) {
-            var result = await SearchByIdAsync("payment_methods", PaymentMethods.id);
+            var result = await SearchByIdAsync("payment_methods", PaymentMethods.Id);
             return FromDynamicTo<PaymentMethods>(result?.payment_method);
         }
 
@@ -175,7 +175,7 @@ namespace Vindi
 
         //Retorna o perfil de pagamento pelo id informado
         public async Task<PaymentProfile> GetByIdAnythingAsync(PaymentProfile PaymentProfile) {
-            var result = await SearchByIdAsync("payment_profiles", PaymentProfile.id);
+            var result = await SearchByIdAsync("payment_profiles", PaymentProfile.Id);
             return FromDynamicTo<PaymentProfile>(result?.payment_profile);
         }
 
@@ -187,7 +187,7 @@ namespace Vindi
 
         //Retorna a cobranças pelo id informado
         public async Task<Charge> GetByIdAnythingAsync(Charge Charge) {
-            var result = await SearchByIdAsync("charges", Charge.id);
+            var result = await SearchByIdAsync("charges", Charge.Id);
             return FromDynamicTo<Charge>(result?.charge);
         }
 
@@ -211,7 +211,7 @@ namespace Vindi
 
         //Retorna o Desconto pelo id informado.
         public async Task<Discount> GetByIdAnythingAsync(Discount Discount) {
-            var result = await SearchByIdAsync("discounts", Discount.id);
+            var result = await SearchByIdAsync("discounts", Discount.Id);
             return FromDynamicTo<Discount>(result?.discount);
         }
 
@@ -223,7 +223,7 @@ namespace Vindi
 
         //Retorna o lote de importação pelo id informado.
         public async Task<ImportBatche> GetByIdAnythingAsync(ImportBatche ImportBatche) {
-            var result = await SearchByIdAsync("import_batches", ImportBatche.id);
+            var result = await SearchByIdAsync("import_batches", ImportBatche.Id);
             return FromDynamicTo<ImportBatche>(result?.import_batche);
         }
 
@@ -235,7 +235,7 @@ namespace Vindi
 
         //Retorna a nota fiscal pelo id informado.
         public async Task<Invoice> GetByIdAnythingAsync(Invoice Invoice) {
-            var result = await SearchByIdAsync("invoices", Invoice.id);
+            var result = await SearchByIdAsync("invoices", Invoice.Id);
             return FromDynamicTo<Invoice>(result?.invoice);
         }
 
@@ -247,7 +247,7 @@ namespace Vindi
 
         //Retorna uma pedencia pelo id informado.
         public async Task<Issue> GetByIdAnythingAsync(Issue Issue) {
-            var result = await SearchByIdAsync("issues", Issue.id);
+            var result = await SearchByIdAsync("issues", Issue.Id);
             return FromDynamicTo<Issue>(result?.issue);
         }
 
@@ -259,7 +259,7 @@ namespace Vindi
 
         //Retorna a empresa cadastrada pelo id informado
         public async Task<Merchant> GetByIdAnythingAsync(Merchant Merchant) {
-            var result = await SearchByIdAsync("merchants", Merchant.id);
+            var result = await SearchByIdAsync("merchants", Merchant.Id);
             return FromDynamicTo<Merchant>(result?.merchant);
         }
 
@@ -271,7 +271,7 @@ namespace Vindi
 
         //Retorna os usuarios associados pelo id informado.
         public async Task<MerchantUsers> GetByIdAnythingAsync(MerchantUsers MerchantUsers) {
-            var result = await SearchByIdAsync("merchant_users", MerchantUsers.id);
+            var result = await SearchByIdAsync("merchant_users", MerchantUsers.Id);
             return FromDynamicTo<MerchantUsers>(result?.merchant_user);
         }
 
@@ -283,7 +283,7 @@ namespace Vindi
 
         //Retorna um mensagem pelo id informado.
         public async Task<Message> GetByIdAnythingAsync(Message Message) {
-            var result = await SearchByIdAsync("messages", Message.id);
+            var result = await SearchByIdAsync("messages", Message.Id);
             return FromDynamicTo<Message>(result?.message);
         }
 
@@ -295,7 +295,7 @@ namespace Vindi
 
         //Retorna uma notificação pelo id informado.
         public async Task<Notification> GetByIdAnythingAsync(Notification Notification) {
-            var result = await SearchByIdAsync("notifications", Notification.id);
+            var result = await SearchByIdAsync("notifications", Notification.Id);
             return FromDynamicTo<Notification>(result?.notification);
         }
 
@@ -307,7 +307,7 @@ namespace Vindi
 
         //Retorna o perfil de acesso pelo id informado.
         public async Task<Role> GetByIdAnythingAsync(Role Role) {
-            var result = await SearchByIdAsync("roles", Role.id);
+            var result = await SearchByIdAsync("roles", Role.Id);
             return FromDynamicTo<Role>(result?.role);
         }
 
@@ -354,7 +354,7 @@ namespace Vindi
         //Atualiza uma assinatura passando sua entidadade(Subscription) com os dados a serem atualizados.
         public async Task<Subscription> UpdateAnythingAsync(Subscription SubscriptionEdit) {
             object Payload = SubscriptionEdit;
-            var result = await PutByIdAsync("subscriptions", SubscriptionEdit.id, Payload);
+            var result = await PutByIdAsync("subscriptions", SubscriptionEdit.Id, Payload);
             return FromDynamicTo<Subscription>(result?.subscription);
         }
 
@@ -371,7 +371,7 @@ namespace Vindi
 
         //Deleta a assinatura pelo id informado.
         public async Task<Subscription> DeleteAnythingAsync(Subscription DeleteSubscription, IDictionary<FilterSearch, String> Query = null) {
-            var result = await DeleteByIdAndQueryAsync("subscriptions", DeleteSubscription.id, Query);
+            var result = await DeleteByIdAndQueryAsync("subscriptions", DeleteSubscription.Id, Query);
             return FromDynamicTo<Subscription>(result?.subscription);
         }
 

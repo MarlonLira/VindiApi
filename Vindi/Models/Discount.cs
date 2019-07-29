@@ -5,7 +5,7 @@ namespace Vindi
     public class Discount
     {
         [JsonProperty("id")]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("discount_type")]
         public string DiscountType { get; set; }
