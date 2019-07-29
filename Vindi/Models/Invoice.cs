@@ -1,24 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class Invoice
     {
-        public int id { get; set; }
-        public decimal? amount { get; set; }
-        public string status { get; set; }
-        public string integration_invoice_id { get; set; }
-        public string integration_reference { get; set; }
-        public string print_url { get; set; }
-        public string description { get; set; }
-        public string settings { get; set; }
-        public DateTime? issued_at { get; set; }
-        public DateTime? scheduled_at { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
-        public Bill bill { get; set; }
-        public Customer customer { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("amount")]
+        public decimal? Amount { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("integration_invoice_id")]
+        public string IntegrationInvoiceId { get; set; }
+
+        [JsonProperty("integration_reference")]
+        public string IntegrationReference { get; set; }
+
+        [JsonProperty("print_url")]
+        public string PrintUrl { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("settings")]
+        public string Settings { get; set; }
+
+        [JsonProperty("issued_at")]
+        public DateTime? IssuedAt { get; set; }
+
+        [JsonProperty("scheduled_at")]
+        public DateTime? ScheduledAt { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+
+        [JsonProperty("bill")]
+        public Bill Bill { get; set; }
+
+        [JsonProperty("customer")]
+        public Customer Customer { get; set; }
     }
 }

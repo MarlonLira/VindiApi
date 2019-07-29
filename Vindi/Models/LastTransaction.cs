@@ -1,24 +1,56 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Vindi
 {
     public class LastTransaction
     {
-        public int id { get; set; }
-        public string transaction_type { get; set; }
-        public string status { get; set; }
-        public string amount { get; set; }
-        public int? installments { get; set; }
-        public string gateway_message { get; set; }
-        public object gateway_response_code { get; set; }
-        public string gateway_authorization { get; set; }
-        public string gateway_transaction_id { get; set; }
-        public GatewayResponseFields gateway_response_fields { get; set; }
-        public object fraud_detector_score { get; set; }
-        public object fraud_detector_status { get; set; }
-        public object fraud_detector_id { get; set; }
-        public DateTime? created_at { get; set; }
-        public Gateway gateway { get; set; }
-        public PaymentProfile payment_profile { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
+
+        [JsonProperty("installments")]
+        public int? Installments { get; set; }
+
+        [JsonProperty("gateway_message")]
+        public string GatewayMessage { get; set; }
+
+        [JsonProperty("gateway_response_code")]
+        public object GatewayResponseCode { get; set; }
+
+        [JsonProperty("gateway_authorization")]
+        public string GatewayAuthorization { get; set; }
+
+        [JsonProperty("gateway_transaction_id")]
+        public string GatewayTransactionId { get; set; }
+
+        [JsonProperty("gateway_response_fields")]
+        public GatewayResponseFields GatewayResponseFields { get; set; }
+
+        [JsonProperty("fraud_detector_score")]
+        public object FraudDetectorScore { get; set; }
+
+        [JsonProperty("fraud_detector_status")]
+        public object FraudDetectorStatus { get; set; }
+
+        [JsonProperty("fraud_detector_id")]
+        public object FraudDetectorId { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        [JsonProperty("gateway")]
+        public Gateway Gateway { get; set; }
+
+        [JsonProperty("payment_profile")]
+        public PaymentProfile PaymentProfile { get; set; }
     }
 }

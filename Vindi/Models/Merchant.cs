@@ -1,12 +1,25 @@
-﻿namespace Vindi
+﻿using Newtonsoft.Json;
+
+namespace Vindi
 {
     public class Merchant
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string company_name { get; set; }
-        public string registry_code { get; set; }
-        public string email { get; set; }
-        public string status { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("company_name")]
+        public string CompanyName { get; set; }
+
+        [JsonProperty("registry_code")]
+        public string RegistryCode { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }
