@@ -315,9 +315,16 @@ namespace Vindi
 
         #region Post Methods
 
+
+        //Cadastra o periodo de um plano passando sua entidade (Period)
+        public async Task<Period> CreateAnythingAsync(Period NewPeriod) {
+            var result = await PostByAnythingAsync("periods", NewPeriod);
+            return FromDynamicTo<Period>(result?.period);
+        }
+
         //Cadastra um plano passando sua entidade (Plan)
         public async Task<Plan> CreateAnythingAsync(Plan NewPlan) {
-            var result = await PostByAnythingAsync("plan", NewPlan);
+            var result = await PostByAnythingAsync("plans", NewPlan);
             return FromDynamicTo<Plan>(result?.plan);
         }
 
@@ -329,7 +336,7 @@ namespace Vindi
 
         //Cadastra o produto do item do plano passando sua entidade (Product)
         public async Task<Product> CreateAnythingAsync(Product NewProduct) {
-            var result = await PostByAnythingAsync("product", NewProduct);
+            var result = await PostByAnythingAsync("products", NewProduct);
             return FromDynamicTo<Product>(result?.product);
         }
 
