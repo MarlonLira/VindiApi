@@ -27,7 +27,7 @@ namespace Vindi
         public int? BillingCycles { get; set; }
 
         [JsonProperty("code")]
-        public object Code { get; set; }
+        public string Code { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }

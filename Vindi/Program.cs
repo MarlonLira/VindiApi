@@ -34,8 +34,8 @@ namespace Vindi
 
 
             Product NewProduct = new Product();
-            NewProduct.Code = "1";
-            NewProduct.Name = "89,9";
+            NewProduct.Code = "2";
+            NewProduct.Name = "79,9";
             NewProduct.PricingSchema = pricingSchema;
 
 
@@ -44,15 +44,26 @@ namespace Vindi
             PlanItems NewPlanItems = new PlanItems();
             NewPlanItems.Cycles = 1;
             NewPlanItems.Product = NewProduct;
-            
+
+            PlanItems[] NewplansItems = new PlanItems[] { NewPlanItems };
 
             Plan NewPlan = new Plan();
             NewPlan.Name = "Plano Anual 89,9";
             NewPlan.Description = "Plano Familia";
-            NewPlan.Code = 999;
+            NewPlan.Code = "1";
             NewPlan.BillingCycles = 12;
-            NewPlan.BillingTriggerDay = 0;
-            NewPlan.PlanItems = new PlanItems[] { NewPlanItems };
+            NewPlan.Status = "active";
+            NewPlan.BillingTriggerType = "beginning_of_period";
+            NewPlan.BillingTriggerDay = 1;
+            NewPlan.Interval = "days";
+            NewPlan.IntervalCount = 5;
+            NewPlan.Installments = 12;
+            NewPlan.IntervalName = "Tempo de combrança";
+            NewPlan.InvoiceSplit = false;
+            
+
+
+            var CreateProduct = Service.CreateAnythingAsync(NewPlanItems).GetAwaiter().GetResult();
 
             var CreatePlans = Service.CreateAnythingAsync(NewPlan).GetAwaiter().GetResult();
 
@@ -67,6 +78,15 @@ namespace Vindi
 
 
             var Buscando = buscar(new Plan());
+
+            var BuscarProduct = buscar(new Product());
+
+            List<Product> ListProduct = (List<Product>)BuscarProduct;
+
+            foreach (Product product in ListProduct) {
+                Console.WriteLine("Id: " + product.Id + " Nome: " + product.Name + " Codigo: " + product.Code);
+            }
+
 
             List<Plan> LPlans = (List<Plan>)Plans;
             foreach (Plan Plan in LPlans) {
