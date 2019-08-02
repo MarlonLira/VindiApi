@@ -315,6 +315,38 @@ namespace Vindi
 
         #region Post Methods
 
+
+        //Cadastra o periodo de um plano passando sua entidade (Period)
+        public async Task<Period> CreateAnythingAsync(Period NewPeriod) {
+            var result = await PostByAnythingAsync("periods", NewPeriod);
+            return FromDynamicTo<Period>(result?.period);
+        }
+
+        //Cadastra um plano passando sua entidade (Plan)
+        public async Task<Plan> CreateAnythingAsync(Plan NewPlan) {
+            var result = await PostByAnythingAsync("plans", NewPlan);
+            return FromDynamicTo<Plan>(result?.plan);
+        }
+
+        //Cadastra os itens do plano passando sua entidade (PlanItems)
+        public async Task<PlanItems> CreateAnythingAsync(PlanItems NewPlanItems) {
+            var result = await PostByAnythingAsync("plan_items", NewPlanItems);
+            return FromDynamicTo<PlanItems>(result?.plan_items);
+        }
+
+        //Cadastra o produto do item do plano passando sua entidade (Product)
+        public async Task<Product> CreateAnythingAsync(Product NewProduct) {
+            var result = await PostByAnythingAsync("products", NewProduct);
+            return FromDynamicTo<Product>(result?.product);
+        }
+
+        //Cadastra o produto do item do plano passando sua entidade (Product)
+        public async Task<ProductItems> CreateAnythingAsync(ProductItems NewProductItems) {
+            var result = await PostByAnythingAsync("product_items", NewProductItems);
+            return FromDynamicTo<ProductItems>(result?.product_items);
+        }
+
+
         //Cadastra um cliente passando sua entidade (Customer).
         public async Task<Customer> CreateAnythingAsync(Customer NewCustomer) {
             var result = await PostByAnythingAsync("customers", NewCustomer);

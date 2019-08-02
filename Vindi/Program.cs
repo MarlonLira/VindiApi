@@ -25,6 +25,63 @@ namespace Vindi
             foreach (Role RUser in Lroles) {
                 Console.WriteLine("id: " + RUser.Id + " Name: " + RUser.Name + " Status: " + RUser.BaseRole);
             }
+
+            PricingSchema pricingSchema = new PricingSchema();
+
+            pricingSchema.Price = "89.9";
+            pricingSchema.MinimumPrice = "89.9";
+
+
+
+            Product NewProduct = new Product();
+            NewProduct.Code = "1";
+            NewProduct.Name = "89,9";
+            NewProduct.PricingSchema = pricingSchema;
+
+
+
+
+            PlanItems NewPlanItems = new PlanItems();
+            NewPlanItems.Cycles = 1;
+            NewPlanItems.Product = NewProduct;
+            
+
+            Plan NewPlan = new Plan();
+            NewPlan.Name = "Plano Anual 89,9";
+            NewPlan.Description = "Plano Familia";
+            NewPlan.Code = 999;
+            NewPlan.BillingCycles = 12;
+            NewPlan.BillingTriggerDay = 0;
+            NewPlan.PlanItems = new PlanItems[] { NewPlanItems };
+
+            var CreatePlans = Service.CreateAnythingAsync(NewPlan).GetAwaiter().GetResult();
+
+
+            var Plans = Service.GetByAnythingAsync(new Plan()).GetAwaiter().GetResult();
+
+            dynamic buscar(dynamic Entidade) {
+                dynamic Result = "";
+                Result = Service.GetByAnythingAsync(Entidade).GetAwaiter().GetResult();
+                return Result;
+            }
+
+
+            var Buscando = buscar(new Plan());
+
+            List<Plan> LPlans = (List<Plan>)Plans;
+            foreach (Plan Plan in LPlans) {
+                Console.WriteLine("id: " + Plan.Id + " Name: " + Plan.Name + " Code: " + 
+                                    Plan.Code + " Descrição: " + Plan.Description + " PlanItens: " + Plan.PlanItems[0].Product.Name +
+                                    " Ciclo " + Plan.BillingCycles + " " + Plan.BillingTriggerDay + " " + Plan.BillingTriggerType);
+            }
+
+            List<Plan> LPlans2 = (List<Plan>)Buscando;
+            foreach (Plan Plan in LPlans2) {
+                Console.WriteLine("id: " + Plan.Id + " Name: " + Plan.Name + " Code: " +
+                                    Plan.Code + " Descrição: " + Plan.Description + " PlanItens: " + Plan.PlanItems[0].Product.Name +
+                                    " Ciclo " + Plan.BillingCycles + " " + Plan.BillingTriggerDay + " " + Plan.BillingTriggerType + "segundo plan");
+            }
+
             /*
 
             Phone phone = new Phone() {
