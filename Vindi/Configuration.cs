@@ -13,6 +13,7 @@
         #endregion
 
         #region Atributes
+
         public string UrlApi { get; set; }
         public int Version { get; set; }
         public string Authorization { get; set; }
