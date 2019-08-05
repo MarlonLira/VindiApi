@@ -5,9 +5,11 @@ namespace Vindi
 {
     public class PaymentProfile
     {
+        
         [JsonProperty("id")]
         public int Id { get; set; }
 
+        
         [JsonProperty("status")]
         public string Status { get; set; }
 
@@ -24,36 +26,69 @@ namespace Vindi
         public object BankAccount { get; set; }
 
         [JsonProperty("card_expiration")]
-        public DateTime? CardExpiration { get; set; }
+        public String CardExpiration { get; set; }
 
+        
         [JsonProperty("card_number_first_six")]
         public string CardNumberFirstSix { get; set; }
 
+        
         [JsonProperty("card_number_last_four")]
         public string CardNumberLastFour { get; set; }
 
+        
         [JsonProperty("token")]
         public string Token { get; set; }
 
         [JsonProperty("gateway_token")]
         public string GatewayToken { get; set; }
 
+        
         [JsonProperty("type")]
         public string Type { get; set; }
 
+        
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
+        
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
+        
         [JsonProperty("payment_company")]
         public PaymentCompany PaymentCompany { get; set; }
 
+        
         [JsonProperty("payment_method")]
         public PaymentMethods PaymentMethod { get; set; }
 
+        
         [JsonProperty("customer")]
         public Customer Customer { get; set; }
+
+        [JsonProperty("customer_id")]
+        public Int32 CustomerId {
+            get {
+                Customer NewCustomer = new Customer() { Id = 0};
+                if (Customer != null) {
+                    NewCustomer = Customer;
+                }
+
+                return NewCustomer.Id;
+            }
+        }
+
+        [JsonProperty("payment_method_code")]
+        public String PaymentMethodCode { get; set; }
+
+        [JsonProperty("payment_company_code")]
+        public String PaymentCompanyCode { get; set; }
+
+        [JsonProperty("card_number")]
+        public String CardNumber { get; set; }
+
+        [JsonProperty("card_cvv")]
+        public String CardCvv { get; set; }
     }
 }

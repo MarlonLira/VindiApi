@@ -36,34 +36,82 @@ namespace Vindi
                 .DeleteAsync()
                 .ReceiveJson();
         }
-        private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id)
-            => await $@"{UrlApi}/{Uri}/{Id}"
-                .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
-                .DeleteAsync()
-                .ReceiveJson();
+        private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id) {
+            dynamic Result = "";
+            try {
+                await $@"{UrlApi}/{Uri}/{Id}"
+                   .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
+                   .DeleteAsync()
+                   .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
 
-        private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action)
-            => await $@"{UrlApi}/{Uri}/{Param}/{Action}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PostAsync(null)
-                .ReceiveJson();
+            return Result;
+        }
 
-        private async Task<dynamic> PostByAnythingAsync(String Uri, Object Requster)
-            => await $@"{UrlApi}/{Uri}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PostJsonAsync(Requster)
-                .ReceiveJson();
+        private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}/{Param}/{Action}"
+                    .WithBasicAuth(Convert.ToString(Authorization), "")
+                    .PostAsync(null)
+                    .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error); 
+            }
 
-        private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster)
-            => await $@"{UrlApi}/{Uri}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PutJsonAsync(Requster)
-                .ReceiveJson();
+            return Result;
+        }
 
-        private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester)
-            => await $@"{UrlApi}/{Uri}/{Id}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PutJsonAsync(Requester).ReceiveJson();
+        private async Task<dynamic> PostByAnythingAsync(String Uri, Object Requster) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}"
+                    .WithBasicAuth(Convert.ToString(Authorization), "")
+                    .PostJsonAsync(Requster)
+                    .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+
+            return Result;
+        }
+
+        private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}"
+                   .WithBasicAuth(Convert.ToString(Authorization), "")
+                   .PutJsonAsync(Requster)
+                   .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+            return Result;
+        }
+
+        private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}/{Id}"
+                    .WithBasicAuth(Convert.ToString(Authorization), "")
+                    .PutJsonAsync(Requester).ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+            return Result;
+        }
         
         private static T FromDynamicTo<T>(dynamic d) where T : class {
             var p = JsonConvert.SerializeObject(d);
@@ -75,10 +123,19 @@ namespace Vindi
         private static string QueryString(IDictionary<FilterSearch, String> Query)
             => Query != null ? $"&query={String.Join(" ", Query.Select(x => $"{x.Key.ToString()}:{x.Value}"))}" : String.Empty;
 
-        private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc)
-            => await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .GetJsonAsync();
+        private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
+                   .WithBasicAuth(Convert.ToString(Authorization), "")
+                   .GetJsonAsync();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+            return Result;
+        }
 
         private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id)
             => await $@"{UrlApi}/{Uri}/{Id}"
@@ -327,12 +384,14 @@ namespace Vindi
             return FromDynamicTo<PaymentProfile>(result?.payment_profile);
         }
 
+        public async Task<PaymentProfile> CreateDynamicAnythingAsync(PaymentProfile NewPaymentProfile) {
+            dynamic Payload = NewPaymentProfile;
+            var result = await PostByAnythingAsync("payment_profiles", Payload);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
+        }
+
         //Cadastra um plano passando sua entidade (Plan)
         public async Task<Plan> CreateAnythingAsync(Plan NewPlan) {
-            var result = await PostByAnythingAsync("plans", NewPlan);
-            return FromDynamicTo<Plan>(result?.plan);
-        }
-        public async Task<Plan> CreateAnythingAsync(dynamic NewPlan) {
             var result = await PostByAnythingAsync("plans", NewPlan);
             return FromDynamicTo<Plan>(result?.plan);
         }

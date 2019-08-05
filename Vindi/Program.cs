@@ -23,10 +23,44 @@ namespace Vindi
                 Console.WriteLine(product.Id + " - "+ product.Code + " - " + product.Name + " - " + product.Status);
             }
 
+            
 
-            Customer customer = new Customer() {
-                Id = 11054368
+            
+
+            Plan plan = new Plan() {
+                Id = 114950
             };
+
+            Customer customer = new Customer();
+            customer.Id = 11082668;
+            customer.Name = "José da Silva";
+            customer.RegistryCode = "27721264391";
+
+            customer = Vindi.GetByAnythingAsync(customer, true);
+
+            PaymentMethods Pm = new PaymentMethods();
+            Pm.Code = "credit_card";
+            
+           
+
+            PaymentCompany Pc = new PaymentCompany();
+            Pc.Code = "mastercard";
+        
+
+            PaymentProfile Pf = new PaymentProfile();
+            Pf.RegistryCode = "27721264391";
+            Pf.HolderName = "José da Silva";
+            Pf.Customer = customer;
+            Pf.PaymentCompany = Pc;
+            Pf.PaymentMethod = Pm;
+            Pf.CardNumber = "5167454851671773";
+            Pf.CardExpiration = "12/2019";
+            Pf.CardCvv = "123";
+
+            var Profile = Vindi.GetByAnythingAsync(new PaymentProfile());
+            
+
+            var Result = Vindi.CreateAnythingAsync(Pf);
 
             customer = Vindi.GetByAnythingAsync(customer, true);
 
@@ -34,6 +68,9 @@ namespace Vindi
 
             Sub.Code = "5";
             Sub.Customer = customer;
+            Sub.Status = "active";
+            Sub.Installments = 12;
+           
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         

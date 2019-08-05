@@ -27,7 +27,11 @@ namespace Vindi {
         public dynamic CreateAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
             dynamic Result = "";
-            Result = Service.CreateAnythingAsync(Entitie).GetAwaiter().GetResult();
+            try {
+                Result = Service.CreateAnythingAsync(Entitie).GetAwaiter().GetResult();
+            } catch (Exception Excep) {
+                throw new Exception(Excep.Message);
+            }
             return Result;
         }
 
