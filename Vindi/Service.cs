@@ -315,7 +315,6 @@ namespace Vindi
 
         #region Post Methods
 
-
         //Cadastra o periodo de um plano passando sua entidade (Period)
         public async Task<Period> CreateAnythingAsync(Period NewPeriod) {
             var result = await PostByAnythingAsync("periods", NewPeriod);
@@ -331,25 +330,12 @@ namespace Vindi
             var result = await PostByAnythingAsync("plans", NewPlan);
             return FromDynamicTo<Plan>(result?.plan);
         }
-
-        //Cadastra os itens do plano passando sua entidade (PlanItems)
-        public async Task<PlanItems> CreateAnythingAsync(PlanItems NewPlanItems) {
-            var result = await PostByAnythingAsync("plan_items", NewPlanItems);
-            return FromDynamicTo<PlanItems>(result?.plan_items);
-        }
-
+        
         //Cadastra o produto do item do plano passando sua entidade (Product)
         public async Task<Product> CreateAnythingAsync(Product NewProduct) {
             var result = await PostByAnythingAsync("products", NewProduct);
             return FromDynamicTo<Product>(result?.product);
         }
-
-        //Cadastra o produto do item do plano passando sua entidade (Product)
-        public async Task<ProductItems> CreateAnythingAsync(ProductItems NewProductItems) {
-            var result = await PostByAnythingAsync("product_items", NewProductItems);
-            return FromDynamicTo<ProductItems>(result?.product_items);
-        }
-
 
         //Cadastra um cliente passando sua entidade (Customer).
         public async Task<Customer> CreateAnythingAsync(Customer NewCustomer) {
@@ -380,11 +366,26 @@ namespace Vindi
         #endregion
 
         #region Put Methods
+
         //Atualiza um cliente passando sua entidade(Customer) com os dados a serem atualizados.
         public async Task<Customer> UpdateAnythingAsync(Customer CustomerEdit){
             dynamic Payload = CustomerEdit;
             var result = await PutByIdAsync("customers", CustomerEdit.Id, Payload);
             return FromDynamicTo<Customer>(result?.customer);
+        }
+
+        //Atualiza um produto passando sua entidade(Product) com os dados a serem atualizados.
+        public async Task<Product> UpdateAnythingAsync(Product ProductEdit) {
+            dynamic Payload = ProductEdit;
+            var result = await PutByIdAsync("products", ProductEdit.Id, Payload);
+            return FromDynamicTo<Product>(result?.product);
+        }
+
+        //Atualiza um plano passando sua entidade(Plan) com os dados a serem atualizados.
+        public async Task<Plan> UpdateAnythingAsync(Plan PlanEdit) {
+            dynamic Payload = PlanEdit;
+            var result = await PutByIdAsync("plans", PlanEdit.Id, Payload);
+            return FromDynamicTo<Plan>(result?.plan);
         }
 
         //Atualiza uma assinatura passando sua entidadade(Subscription) com os dados a serem atualizados.
