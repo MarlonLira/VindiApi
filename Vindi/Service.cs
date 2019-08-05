@@ -321,6 +321,12 @@ namespace Vindi
             return FromDynamicTo<Period>(result?.period);
         }
 
+        //Cadastra um perfil de pagamento de um cliente passando sua entidade (PaymentProfile)
+        public async Task<PaymentProfile> CreateAnythingAsync(PaymentProfile NewPaymentProfile) {
+            var result = await PostByAnythingAsync("payment_profiles", NewPaymentProfile);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
+        }
+
         //Cadastra um plano passando sua entidade (Plan)
         public async Task<Plan> CreateAnythingAsync(Plan NewPlan) {
             var result = await PostByAnythingAsync("plans", NewPlan);

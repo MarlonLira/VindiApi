@@ -23,6 +23,17 @@ namespace Vindi
                 Console.WriteLine(product.Id + " - "+ product.Code + " - " + product.Name + " - " + product.Status);
             }
 
+
+            Customer customer = new Customer() {
+                Id = 11054368
+            };
+
+            customer = Vindi.GetByAnythingAsync(customer, true);
+
+            Subscription Sub = new Subscription();
+
+            Sub.Code = "5";
+            Sub.Customer = customer;
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         

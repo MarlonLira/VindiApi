@@ -1,4 +1,6 @@
-﻿namespace Vindi {
+﻿using System;
+
+namespace Vindi {
     class Vindi {
 
         #region Configs
@@ -10,39 +12,36 @@
 
         #region Methods
 
-        public dynamic GetByAnythingAsync(dynamic Entitie) {
+        public dynamic GetByAnythingAsync(dynamic Entitie, Boolean IsById = false) {
             Service = new Service(Config);
             dynamic Result = "";
-
-            Result = Service.GetByAnythingAsync(Entitie).GetAwaiter().GetResult();
-
+            if (IsById == false) {
+                Result = Service.GetByAnythingAsync(Entitie).GetAwaiter().GetResult();
+            }
+            else if (IsById == true) {
+                Result = Service.GetByIdAnythingAsync(Entitie).GetAwaiter().GetResult();
+            }
             return Result;
         }
 
         public dynamic CreateAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
             dynamic Result = "";
-
             Result = Service.CreateAnythingAsync(Entitie).GetAwaiter().GetResult();
-
             return Result;
         }
 
         public dynamic UpdateAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
             dynamic Result = "";
-
             Result = Service.UpdateAnythingAsync(Entitie).GetAwaiter().GetResult();
-
             return Result;
         }
 
         public dynamic DeleteAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
             dynamic Result = "";
-
             Result = Service.DeleteAnythingAsync(Entitie).GetAwaiter().GetResult();
-
             return Result;
         }
 
