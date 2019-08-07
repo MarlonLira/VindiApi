@@ -74,7 +74,6 @@ namespace Vindi
                 if (Customer != null) {
                     NewCustomer = Customer;
                 }
-
                 return NewCustomer.Id;
             }
         }

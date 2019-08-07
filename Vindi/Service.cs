@@ -182,6 +182,52 @@ namespace Vindi
             return FromDynamicTo<IEnumerable<Customer>>(list?.customers);
         }
 
+        //Pesquisa o Cliente pelo CPF ou Codigo informado.
+        public dynamic GetByAnythingAsync(Customer Customer, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Customer.RegistryCode)) {
+                        Query.Add(FilterSearch.registry_code, Customer.RegistryCode);
+                    }else if (!String.IsNullOrEmpty(Customer.Code)) {
+                        Query.Add(FilterSearch.code, Customer.Code);
+                    }
+
+                    Result = GetByAnythingAsync(Customer, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Customer).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
+        //Pesquisa o plano pelo nome ou codigo informado.
+        public dynamic GetByAnythingAsync(Plan Plan, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Plan.Code)) {
+                        Query.Add(FilterSearch.code, Plan.Code);
+                    } else if (!String.IsNullOrEmpty(Plan.Name)) {
+                        Query.Add(FilterSearch.name, Plan.Name);
+                    }
+
+                    Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Plan).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
         //Retorna o cliente pelo id informado
         public async Task<Customer> GetByIdAnythingAsync(Customer Customer) {
             var result = await SearchByIdAsync("customers", Customer.Id);

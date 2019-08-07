@@ -8,11 +8,12 @@ namespace Vindi
     {
         static void Main(string[] args) {
 
+
             /*
             Configuration Config = new Configuration("https://app.vindi.com.br", 1, "XlZBPa4zUhX1In4T9yHloj83WNaJf0i7V386V_Q2xQk");
             Service Service = new Service(Config);*/
-
-            Vindi Vindi = new Vindi();
+            /*
+            
 
             //1
             var Product = Vindi.GetByAnythingAsync(new Product());
@@ -71,12 +72,36 @@ namespace Vindi
             Sub.PlanId = plan.Id;
             Sub.PaymentMethodCode = Pm.Code;
 
-            var SubResult = Vindi.CreateAnythingAsync(Sub);
+            var SubResult = Vindi.CreateAnythingAsync(Sub);*/
+            Vindi Vindi = new Vindi();
+            Customer Cliente = new Customer();
+            Cliente.RegistryCode = "76907119013";
+            Cliente.Name = "Arthur B";
+            Cliente.Code = "6685855";
+            Cliente.Email = "abmarques95@gmail.com";
 
+            Plan Plan = new Plan();
+            Plan.Name = "Anual livre 99,90";
+
+            PaymentCompany Pc = new PaymentCompany();
+            Pc.Code = "mastercard";
+
+            PaymentProfile Pf = new PaymentProfile();
+            Pf.RegistryCode = "13585674097";
+            Pf.HolderName = "Arthur Benevides";
+            Pf.Customer = Cliente;
+            Pf.PaymentCompany = Pc;
+            Pf.CardNumber = "5167454851671773";
+            Pf.CardExpiration = "12/2019";
+            Pf.CardCvv = "123";
+
+            Vindi.CreateSubscriptionRequester(Cliente, Pf, Plan);
 
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         
         }
+        
+        
     }
 }
