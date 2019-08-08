@@ -73,6 +73,12 @@ namespace Vindi
             Sub.PaymentMethodCode = Pm.Code;
 
             var SubResult = Vindi.CreateAnythingAsync(Sub);*/
+
+            Product NewProduct = new Product();
+            NewProduct.Code = "55006";
+            NewProduct.Name = "Mensalidade 79,90";
+            NewProduct.PricingSchema = new PricingSchema() { Price = "79.9" };
+
             Vindi Vindi = new Vindi();
             Customer Cliente = new Customer();
             Cliente.RegistryCode = "79089806008";
@@ -81,10 +87,21 @@ namespace Vindi
             Cliente.Email = "cbduarte@gmail.com";
 
             Customer Cliente2 = new Customer();
-            Cliente2.RegistryCode = "76907119013";
+            Cliente2.RegistryCode = "09177350480";
+
+            PlanItems planItems = new PlanItems();
+            planItems.Product = NewProduct;
 
             Plan Plan = new Plan();
-            Plan.Name = "Anual livre 99,90";
+            Plan.Name = "Anual livre 79,90";
+            Plan.Code = "8899";
+            Plan.BillingCycles = 12;
+            Plan.BillingTriggerType = "beginning_of_period";
+            Plan.Interval = "months";
+            Plan.IntervalName = "Mensalidade";
+            Plan.IntervalCount = 1;
+            Plan.PlanItems = new PlanItems[] { planItems };
+            
 
             PaymentCompany Pc = new PaymentCompany();
             Pc.Code = "visa";

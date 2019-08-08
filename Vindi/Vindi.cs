@@ -19,13 +19,15 @@ namespace Vindi {
             Subscription SubEdit;
             Customer CustomerEdit;
             Plan PlanEdit;
+            Product ProductEdit;
             PaymentMethods PayMethodsEdit;
             PaymentProfile PayProfileEdit;
             DateTime CurrentDate = DateTime.UtcNow.AddHours(-3);
-            object Result = "";
+            dynamic Result;
             try {
                 PayProfileEdit = PayMentProfile;
                 PlanEdit = Plan;
+                ProductEdit = PlanEdit.PlanItems[0].Product;
                 CustomerEdit = Customer;
                 List<Customer> FoundClient;
 
@@ -82,12 +84,28 @@ namespace Vindi {
 
                 /* Pesquisa se o plano pelo nome ou codigo caso não encontre tenta cadastra um novo plano com as 
                 informações passadas e da prosseguimento no processo de Assinatura caso consiga*/
-                var FindPlan = GetByAnythingAsync(PlanEdit);
+                var FindPlan = GetByAnythingAsync(PlanEdit, true);
+                
                 if (FindPlan != null) {
                     List<Plan> FoundPlan = (List<Plan>)FindPlan;
 
                     if (FoundPlan.Count == 0) {
-                        throw new Exception("O plano não foi encontrado.");
+                        
+                        var FindProduct = GetByAnythingAsync(ProductEdit, true);
+                        List<Product> FoundProduct = (List<Product>)FindProduct;
+                        if (FoundProduct.Count > 0) {
+                            foreach (Product product in FoundProduct) {
+                                ProductEdit = product;
+                            }
+                        } else {
+                            var NewProduct = CreateAnythingAsync(ProductEdit);
+                            ProductEdit = (Product)NewProduct;
+                        }
+
+                        PlanEdit.PlanItems[0].Product = ProductEdit;
+
+                        var NewPlan = CreateAnythingAsync(PlanEdit);
+                        PlanEdit = (Plan)NewPlan;
                     } else if (FoundPlan.Count == 1) {
                         foreach (Plan plan in FoundPlan) {
                             PlanEdit = plan;
@@ -143,7 +161,7 @@ namespace Vindi {
         public dynamic DeleteSubscription(Customer Customer) {
             Customer CustomerEdit;
             Subscription SubEdit;
-            object Result;
+            dynamic Result;
             try {
                 /*Procura o aluno pelo cpf ou codigo informado na entidade Customer*/
                 CustomerEdit = Customer;
@@ -191,11 +209,11 @@ namespace Vindi {
         }
         public dynamic GetByAnythingAsync(dynamic Entitie, Boolean IsForQUery = false, Boolean IsById = false) {
             Service = new Service(Config);
-            dynamic Result = "";
+            dynamic Result;
             if (IsById == false) {
                 Result = Service.GetByAnythingAsync(Entitie, IsForQUery);
             }
-            else if (IsById == true) {
+            else {
                 Result = Service.GetByIdAnythingAsync(Entitie).GetAwaiter().GetResult();
             }
             return Result;
@@ -203,7 +221,7 @@ namespace Vindi {
 
         public dynamic CreateAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
-            dynamic Result = "";
+            dynamic Result;
             try {
                 Result = Service.CreateAnythingAsync(Entitie).GetAwaiter().GetResult();
             } catch (Exception Excep) {
@@ -214,14 +232,14 @@ namespace Vindi {
 
         public dynamic UpdateAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
-            dynamic Result = "";
+            dynamic Result;
             Result = Service.UpdateAnythingAsync(Entitie).GetAwaiter().GetResult();
             return Result;
         }
 
         public dynamic DeleteAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
-            dynamic Result = "";
+            dynamic Result;
             Result = Service.DeleteAnythingAsync(Entitie).GetAwaiter().GetResult();
             return Result;
         }

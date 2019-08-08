@@ -163,6 +163,29 @@ namespace Vindi
             return FromDynamicTo<ProductItems>(result?.product_item);
         }
 
+        //Pesquisa o plano pelo nome ou codigo informado.
+        public dynamic GetByAnythingAsync(Product Product, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Product.PricingSchema.Price)) {
+                        Query.Add(FilterSearch.price, Product.PricingSchema.Price);
+                    } else if (!String.IsNullOrEmpty(Product.Name)) {
+                        Query.Add(FilterSearch.name, Product.Name);
+                    }
+
+                    Result = GetByAnythingAsync(Product, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Product).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
         //Retorna todos os Planos
         public async Task<IEnumerable<Plan>> GetByAnythingAsync(Plan Plan, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("plans", Query, Page, PerPage, filterSearch, sortOrder);
