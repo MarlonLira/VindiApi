@@ -28,7 +28,6 @@ namespace Vindi
         #endregion
 
         #region Others
-
         private async Task<dynamic> DeleteByIdAndQueryAsync(String Uri, Int32 Id, IDictionary<FilterSearch, String> Query = null) {
             var queryString = QueryString(Query);
             return await $@"{UrlApi}/{Uri}/{Id}{(String.IsNullOrEmpty(queryString) ? String.Empty : queryString.Substring(1))}"
@@ -176,6 +175,29 @@ namespace Vindi
             return FromDynamicTo<Plan>(result?.plan);
         }
 
+        //Pesquisa o plano pelo nome ou codigo informado.
+        public dynamic GetByAnythingAsync(Plan Plan, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Plan.Code)) {
+                        Query.Add(FilterSearch.code, Plan.Code);
+                    } else if (!String.IsNullOrEmpty(Plan.Name)) {
+                        Query.Add(FilterSearch.name, Plan.Name);
+                    }
+
+                    Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Plan).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
         //Retorna todos os clientes
         public async Task<IEnumerable<Customer>> GetByAnythingAsync(Customer Customer,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("customers", Query, Page, PerPage, filterSearch, sortOrder);
@@ -205,29 +227,6 @@ namespace Vindi
             return Result;
         }
 
-        //Pesquisa o plano pelo nome ou codigo informado.
-        public dynamic GetByAnythingAsync(Plan Plan, Boolean IsforQuery) {
-            dynamic Result = null;
-            IDictionary<FilterSearch, String> Query;
-            try {
-                if (IsforQuery == true) {
-                    Query = new Dictionary<FilterSearch, String>();
-                    if (!String.IsNullOrEmpty(Plan.Code)) {
-                        Query.Add(FilterSearch.code, Plan.Code);
-                    } else if (!String.IsNullOrEmpty(Plan.Name)) {
-                        Query.Add(FilterSearch.name, Plan.Name);
-                    }
-
-                    Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
-                } else {
-                    Result = GetByAnythingAsync(Plan).GetAwaiter().GetResult();
-                }
-            } catch (FlurlHttpException Except) {
-                throw new Exception(Except.Message);
-            }
-            return Result;
-        }
-
         //Retorna o cliente pelo id informado
         public async Task<Customer> GetByIdAnythingAsync(Customer Customer) {
             var result = await SearchByIdAsync("customers", Customer.Id);
@@ -244,6 +243,27 @@ namespace Vindi
         public async Task<Subscription> GetByIdAnythingAsync(Subscription Subscription) {
             var result = await SearchByIdAsync("subscriptions", Subscription.Id);
             return FromDynamicTo<Subscription>(result?.subscription);
+        }
+
+        //Pesquisa a assinatura de um cliente pelo id do cliente informado.
+        public dynamic GetByAnythingAsync(Subscription Subscription, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (Subscription.Customer.Id > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(Subscription.Customer.Id));
+                        Query.Add(FilterSearch.status, "active");
+                    } 
+                    Result = GetByAnythingAsync(Subscription, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Subscription).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
         }
 
         //Retorna todos os periodos
@@ -281,6 +301,32 @@ namespace Vindi
             var result = await SearchByIdAsync("payment_profiles", PaymentProfile.Id);
             return FromDynamicTo<PaymentProfile>(result?.payment_profile);
         }
+
+        //Pesquisa o perfil de pagamento de uma cliente pelo id do cliente ou cpf informado.
+        public dynamic GetByAnythingAsync(PaymentProfile PaymentProfile, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (PaymentProfile.CustomerId > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(PaymentProfile.CustomerId));
+                        Query.Add(FilterSearch.status, "active");
+                    } else if (!String.IsNullOrEmpty(PaymentProfile.Customer.RegistryCode)) {
+                        Query.Add(FilterSearch.registry_code, PaymentProfile.Customer.RegistryCode);
+                        Query.Add(FilterSearch.status, "active");
+                    }
+
+                    Result = GetByAnythingAsync(PaymentProfile, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(PaymentProfile).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
 
         //Retorna todas as cobranças
         public async Task<IEnumerable<Charge>> GetByAnythingAsync(Charge Charge,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.created_at, SortOrder sortOrder = SortOrder.asc) {

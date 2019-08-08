@@ -75,28 +75,33 @@ namespace Vindi
             var SubResult = Vindi.CreateAnythingAsync(Sub);*/
             Vindi Vindi = new Vindi();
             Customer Cliente = new Customer();
-            Cliente.RegistryCode = "76907119013";
-            Cliente.Name = "Arthur B";
-            Cliente.Code = "6685855";
-            Cliente.Email = "abmarques95@gmail.com";
+            Cliente.RegistryCode = "79089806008";
+            Cliente.Name = "Carlos Duarte";
+            Cliente.Code = "777888";
+            Cliente.Email = "cbduarte@gmail.com";
+
+            Customer Cliente2 = new Customer();
+            Cliente2.RegistryCode = "76907119013";
 
             Plan Plan = new Plan();
             Plan.Name = "Anual livre 99,90";
 
             PaymentCompany Pc = new PaymentCompany();
-            Pc.Code = "mastercard";
+            Pc.Code = "visa";
 
             PaymentProfile Pf = new PaymentProfile();
-            Pf.RegistryCode = "13585674097";
-            Pf.HolderName = "Arthur Benevides";
+            Pf.RegistryCode = "79089806008";
+            Pf.HolderName = "Carlos Duarte";
             Pf.Customer = Cliente;
             Pf.PaymentCompany = Pc;
-            Pf.CardNumber = "5167454851671773";
+            Pf.CardNumber = "4444444444444448";
             Pf.CardExpiration = "12/2019";
             Pf.CardCvv = "123";
 
-            Vindi.CreateSubscriptionRequester(Cliente, Pf, Plan);
+            //var Result2 = Vindi.DeleteSubscription(Cliente2);
+            var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);
 
+            Subscription Sub = (Subscription)Result;
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         
