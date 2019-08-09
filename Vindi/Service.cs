@@ -506,7 +506,7 @@ namespace Vindi
         }
 
         //Cadastra um plano passando sua entidade (Plan)
-        public async Task<Plan> CreateAnythingAsync(Plan NewPlan) {
+        public async Task<Plan> CreateAnythingAsync(CreatePlanRequester NewPlan) {
             var result = await PostByAnythingAsync("plans", NewPlan);
             return FromDynamicTo<Plan>(result?.plan);
         }

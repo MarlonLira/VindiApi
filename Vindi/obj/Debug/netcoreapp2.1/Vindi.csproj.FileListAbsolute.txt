@@ -30,3 +30,4 @@ C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.AssemblyInfo.cs
 C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.dll
 C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.pdb
 C:\Web\Api\VindiApi\Vindi\obj\Debug\netcoreapp2.1\Vindi.csprojAssemblyReference.cache
+C:\Users\Academia Brilhante\Desktop\API\Vindi\obj\Debug\netcoreapp2.1\Vindi.csprojAssemblyReference.cache

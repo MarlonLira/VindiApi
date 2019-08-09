@@ -18,8 +18,9 @@ namespace Vindi {
             SubscriptionRequester NewSub;
             Subscription SubEdit;
             Customer CustomerEdit;
+            CreatePlanRequester PlanResquester;
             Plan PlanEdit;
-            Product ProductEdit;
+            PlanItems[] PlanItemsEdit;
             PaymentMethods PayMethodsEdit;
             PaymentProfile PayProfileEdit;
             DateTime CurrentDate = DateTime.UtcNow.AddHours(-3);
@@ -27,12 +28,13 @@ namespace Vindi {
             try {
                 PayProfileEdit = PayMentProfile;
                 PlanEdit = Plan;
-                ProductEdit = PlanEdit.PlanItems[0].Product;
+                PlanItemsEdit = PlanEdit.PlanItems;
                 CustomerEdit = Customer;
                 List<Customer> FoundClient;
 
-                /* Pesquisa o cliente pelo CPF ou codigo caso não encontre cadastra um novo cliente pelas 
-                informações passadas e da prosseguimento no processo de Assinatura */
+                /* Pesquisa o cliente pelo CPF ou codigo caso não encontre cadastra um novo cliente 
+                 * pelas informações passadas e da prosseguimento no processo de Assinatura 
+                 */
                 if (!String.IsNullOrEmpty(CustomerEdit.RegistryCode) || !String.IsNullOrEmpty(CustomerEdit.Code)) {
                     var FindClient = GetByAnythingAsync(CustomerEdit, true);
                     if (FindClient != null) {
@@ -53,8 +55,9 @@ namespace Vindi {
                     }
                 }
 
-                /* Pesquisa se o cliente possui um perfil de pagamendo disponivel pelo id ou cpf caso não encontre tenta cadastra um novo perfil de pagamento com as 
-                informações passadas e da prosseguimento no processo de Assinatura caso consiga */
+                /* Pesquisa se o cliente possui um perfil de pagamendo disponivel pelo id ou cpf caso não encontre 
+                 * tenta cadastra um novo perfil de pagamento com as informações passadas e da prosseguimento no processo de Assinatura caso consiga 
+                 */
                 if (PayProfileEdit == null) {
                     PayProfileEdit = new PaymentProfile();
                 }
@@ -82,29 +85,38 @@ namespace Vindi {
                     }
                 }
 
-                /* Pesquisa se o plano pelo nome ou codigo caso não encontre tenta cadastra um novo plano com as 
-                informações passadas e da prosseguimento no processo de Assinatura caso consiga*/
+                /* Pesquisa se o plano pelo nome ou codigo caso não encontre tenta cadastra um novo plano 
+                 * com as informações passadas e da prosseguimento no processo de Assinatura caso consiga
+                 */
                 var FindPlan = GetByAnythingAsync(PlanEdit, true);
                 
                 if (FindPlan != null) {
                     List<Plan> FoundPlan = (List<Plan>)FindPlan;
 
                     if (FoundPlan.Count == 0) {
-                        
-                        var FindProduct = GetByAnythingAsync(ProductEdit, true);
-                        List<Product> FoundProduct = (List<Product>)FindProduct;
-                        if (FoundProduct.Count > 0) {
-                            foreach (Product product in FoundProduct) {
-                                ProductEdit = product;
+
+                        /* Pesquisa se o produto informado no plano pelo preço ou codigo caso não encontre tenta cadastra 
+                         * um novo produto com as informações passadas e da prosseguimento no processo de Assinatura caso consiga
+                         */
+                        Int32 Count = 0;
+                        foreach (PlanItems PItens in PlanItemsEdit) {
+                            var FindProduct = GetByAnythingAsync(PItens.Product, true);
+                            List<Product> FoundProduct = (List<Product>)FindProduct;
+                            if (FoundProduct.Count > 0) {
+                                foreach (Product product in FoundProduct) {
+                                    PlanItemsEdit[Count].Product = product;
+                                }
+                            } else {
+                                var NewProduct = CreateAnythingAsync(PlanItemsEdit[Count].Product);
+                                PlanItemsEdit[Count].Product = (Product)NewProduct;
                             }
-                        } else {
-                            var NewProduct = CreateAnythingAsync(ProductEdit);
-                            ProductEdit = (Product)NewProduct;
                         }
+                       
+                        PlanResquester = new CreatePlanRequester();
 
-                        PlanEdit.PlanItems[0].Product = ProductEdit;
-
-                        var NewPlan = CreateAnythingAsync(PlanEdit);
+                        PlanEdit.PlanItems = PlanItemsEdit;
+                        PlanResquester.Plan = PlanEdit;
+                        var NewPlan = CreateAnythingAsync(PlanResquester);
                         PlanEdit = (Plan)NewPlan;
                     } else if (FoundPlan.Count == 1) {
                         foreach (Plan plan in FoundPlan) {
@@ -112,7 +124,7 @@ namespace Vindi {
                             break;
                         }
                     } else {
-                        throw new Exception("Existem varios planos com os dados informados, por favor verifique os dados informados.");
+                        throw new Exception("Foi encontrado mais de um plano, por favor verifique os dados informados, ou refine sua busca");
                     }
                 }
 
@@ -126,7 +138,9 @@ namespace Vindi {
                     Code = "credit_card"
                 };
 
-                //Assinatura
+                /* Pesquisa se o aluno já possui uma assinatura, caso possua verifica se possui 
+                 * um determinado numero de dias para o fim da assinatura, caso não possua o processo de assinatura continua normalmente.
+                 */
                 SubEdit = new Subscription();
                 SubEdit.Customer = CustomerEdit;
                 var FindSubscription = GetByAnythingAsync(SubEdit, true);

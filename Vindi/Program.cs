@@ -73,13 +73,21 @@ namespace Vindi
             Sub.PaymentMethodCode = Pm.Code;
 
             var SubResult = Vindi.CreateAnythingAsync(Sub);*/
+            Vindi Vindi = new Vindi();
 
             Product NewProduct = new Product();
-            NewProduct.Code = "55006";
-            NewProduct.Name = "Mensalidade 79,90";
-            NewProduct.PricingSchema = new PricingSchema() { Price = "79.9" };
+            NewProduct.Code = "5876";
+            NewProduct.Name = "Mensalidade 59,90";
+            NewProduct.PricingSchema = new PricingSchema() { Price = "59.9" };
 
-            Vindi Vindi = new Vindi();
+            //NewProduct = (Product)Vindi.CreateAnythingAsync(NewProduct);
+            var Products = Vindi.GetByAnythingAsync(NewProduct, true);
+            List<Product> FindProduct = (List<Product>)Products;
+            foreach (Product ProductEdit in FindProduct) {
+                NewProduct = ProductEdit;
+                break;
+            }
+
             Customer Cliente = new Customer();
             Cliente.RegistryCode = "79089806008";
             Cliente.Name = "Carlos Duarte";
@@ -93,15 +101,21 @@ namespace Vindi
             planItems.Product = NewProduct;
 
             Plan Plan = new Plan();
-            Plan.Name = "Anual livre 79,90";
-            Plan.Code = "8899";
+            Plan.Name = "Anual livre 59,90";
+            Plan.Code = "82299";
             Plan.BillingCycles = 12;
             Plan.BillingTriggerType = "beginning_of_period";
             Plan.Interval = "months";
             Plan.IntervalName = "Mensalidade";
             Plan.IntervalCount = 1;
+            Plan.Installments = "1";
+            Plan.BillingTriggerDay = "0";
             Plan.PlanItems = new PlanItems[] { planItems };
-            
+
+            /*CreatePlanRequester createPlan = new CreatePlanRequester();
+            createPlan.Plan = Plan;*/
+            /*
+            var Re = Vindi.CreateAnythingAsync(createPlan);*/
 
             PaymentCompany Pc = new PaymentCompany();
             Pc.Code = "visa";
@@ -119,6 +133,8 @@ namespace Vindi
             var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);
 
             Subscription Sub = (Subscription)Result;
+            Console.WriteLine("Code: " + Sub.Code + "/n Cliente: " + Sub.Customer.Name + " /n CPF: "+ Sub.Customer.RegistryCode + "/n Plano: " + Sub.Plan.Name + "/n Preço: " + 
+                Convert.ToString((Convert.ToInt32(Sub.ProductItems[0].PricingSchema.Price) * Convert.ToInt32(Sub.BillingCycles))));
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         
