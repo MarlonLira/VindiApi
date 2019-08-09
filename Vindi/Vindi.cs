@@ -61,15 +61,31 @@ namespace Vindi {
                 if (PayProfileEdit == null) {
                     PayProfileEdit = new PaymentProfile();
                 }
-
+                Boolean IsNewProfile = true;
                 PayProfileEdit.Customer = CustomerEdit;
-                var FindPayProfile = GetByAnythingAsync(PayProfileEdit, true);
+                var FindPayProfile = new List<PaymentProfile>();
+                if (String.IsNullOrEmpty(PayProfileEdit.CardNumber) && String.IsNullOrEmpty(Convert.ToString(PayProfileEdit.BankAccount))) {
+                    FindPayProfile = (List<PaymentProfile>)GetByAnythingAsync(PayProfileEdit, true);
+                    IsNewProfile = false;
+                }
                 if (FindPayProfile != null) {
                     List<PaymentProfile> FoundPaymentProfiles = (List<PaymentProfile>)FindPayProfile;
 
                     if (FoundPaymentProfiles.Count == 0) {
-                        //Cria um perfil de pagamento para o cliente, caso tenha sido passada as informações necessarias.
+                        /*Cria um perfil de pagamento para o cliente, caso tenha sido passada as informações necessarias.*/
                         if (PayMentProfile != null) {
+                            /* Deleta o perfil antigo se tiver, caso seja informado os dados necessarios para a troca de perfis de pagamento do cliene*/
+                            PaymentProfile DeleteOldProfile = null;
+                            if (IsNewProfile == true) {
+                                FindPayProfile = (List<PaymentProfile>)GetByAnythingAsync(PayProfileEdit, true);
+                                foreach (PaymentProfile OldProfile in FindPayProfile) {
+                                    DeleteOldProfile = OldProfile;
+                                }
+                            }
+                            if (DeleteOldProfile != null && DeleteOldProfile.Id > 0) {
+                                var DeleteResult = DeleteAnythingAsync(DeleteOldProfile);
+                            }
+                            
                             var NewPayProfile = CreateAnythingAsync(PayMentProfile);
                             PayProfileEdit = (PaymentProfile)NewPayProfile;
                         } else {

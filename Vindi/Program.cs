@@ -129,12 +129,11 @@ namespace Vindi
             Pf.CardExpiration = "12/2019";
             Pf.CardCvv = "123";
 
-            //var Result2 = Vindi.DeleteSubscription(Cliente2);
+            var Result2 = Vindi.DeleteSubscription(Cliente2);
             var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);
 
             Subscription Sub = (Subscription)Result;
-            Console.WriteLine("Code: " + Sub.Code + "/n Cliente: " + Sub.Customer.Name + " /n CPF: "+ Sub.Customer.RegistryCode + "/n Plano: " + Sub.Plan.Name + "/n Preço: " + 
-                Convert.ToString((Convert.ToInt32(Sub.ProductItems[0].PricingSchema.Price) * Convert.ToInt32(Sub.BillingCycles))));
+            Console.WriteLine("Code: " + "\n Cliente: " + Sub.Customer.Name + " /n CPF: " + "\n Plano: " + Sub.Plan.Name + "\n Preço: ");
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         

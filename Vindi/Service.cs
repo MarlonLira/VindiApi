@@ -38,7 +38,7 @@ namespace Vindi
         private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id) {
             dynamic Result = "";
             try {
-                await $@"{UrlApi}/{Uri}/{Id}"
+                Result = await $@"{UrlApi}/{Uri}/{Id}"
                    .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
                    .DeleteAsync()
                    .ReceiveJson();
@@ -584,6 +584,18 @@ namespace Vindi
         public async Task<Customer> DeleteAnythingAsync(Customer DeleteCustomer) {
             var result = await DeleteByIdAsync("customers", DeleteCustomer.Id);
             return FromDynamicTo<Customer>(result?.customer);
+        }
+
+        //Deleta o perfil de pagamento pelo id informado.
+        public async Task<PaymentProfile> DeleteAnythingAsync(PaymentProfile DeletePaymentProfile) {
+            var result = await DeleteByIdAsync("payment_profiles", DeletePaymentProfile.Id);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
+        }
+
+        //Deleta o plano pelo id informado.
+        public async Task<Plan> DeleteAnythingAsync(Plan Plan) {
+            var result = await DeleteByIdAsync("plans", Plan.Id);
+            return FromDynamicTo<Plan>(result?.plan);
         }
 
         //Deleta a assinatura pelo id informado.
