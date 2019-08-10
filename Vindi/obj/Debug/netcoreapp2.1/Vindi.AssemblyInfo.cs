@@ -11,11 +11,11 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Vindi")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Marlon Lira")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("Vindi")]
+[assembly: System.Reflection.AssemblyProductAttribute("Vindi SDK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vindi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
