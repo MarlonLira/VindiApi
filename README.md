@@ -31,7 +31,10 @@ Vindi Vindi = new Vindi(){
 
 ## Exemplo de implementação
 
-> Exemplo de código do cadastro de um cliente após autenticação, iniciando com a instância da entidade Vindi e populando a entidade Customer, logo após, utilizando o metodo CreateAnythingAsync concluimos o cadastro do cliente e recebemos suas informações no retorno do metodo.
+> Exemplo de código do cadastro de um cliente após autenticação, 
+iniciando com a instância da entidade Vindi e populando a entidade Customer, logo após, 
+utilizando o metodo CreateAnythingAsync concluimos o cadastro do cliente
+e recebemos suas informações no retorno do metodo.
 
 ```C#
 Vindi Vindi = new Vindi();
@@ -44,7 +47,9 @@ Customer NewCustomer = new Customer(){
     new Phone { Number = "5581988887777", PhoneType = "mobile"}
   }
 };
-// Metodo responsavel por criar um novo cliente utilizando os dados armazenados na entidade(Customer) retornando todos os dados referente ao cadastro do cliente.
+// Metodo responsavel por criar um novo cliente utilizando os dados armazenados 
+na entidade(Customer) retornando todos os dados referente ao cadastro do cliente.
+
 NewCustomer = (Customer)Vindi.CreateAnythingAsync(NewCustomer);
 
 ```
