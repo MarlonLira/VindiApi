@@ -48,8 +48,8 @@ Customer NewCustomer = new Customer(){
   }
 };
 /* Metodo responsavel por criar um novo cliente utilizando os dados armazenados 
-*  na entidade(Customer) retornando todos os dados referente ao cadastro do cliente.
-*/
+ *  na entidade(Customer) retornando todos os dados referente ao cadastro do cliente.
+ */
 
 NewCustomer = (Customer)Vindi.CreateAnythingAsync(NewCustomer);
 
