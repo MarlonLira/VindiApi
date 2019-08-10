@@ -21,7 +21,7 @@ namespace Vindi
         public string BillingTriggerType { get; set; }
 
         [JsonProperty("billing_trigger_day")]
-        public int? BillingTriggerDay { get; set; }
+        public String BillingTriggerDay { get; set; }
 
         [JsonProperty("billing_cycles")]
         public int? BillingCycles { get; set; }
@@ -36,7 +36,7 @@ namespace Vindi
         public string Status { get; set; }
 
         [JsonProperty("installments")]
-        public int? Installments { get; set; }
+        public String Installments { get; set; }
 
         [JsonProperty("invoice_split")]
         public bool InvoiceSplit { get; set; }

@@ -28,7 +28,6 @@ namespace Vindi
         #endregion
 
         #region Others
-
         private async Task<dynamic> DeleteByIdAndQueryAsync(String Uri, Int32 Id, IDictionary<FilterSearch, String> Query = null) {
             var queryString = QueryString(Query);
             return await $@"{UrlApi}/{Uri}/{Id}{(String.IsNullOrEmpty(queryString) ? String.Empty : queryString.Substring(1))}"
@@ -36,34 +35,82 @@ namespace Vindi
                 .DeleteAsync()
                 .ReceiveJson();
         }
-        private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id)
-            => await $@"{UrlApi}/{Uri}/{Id}"
-                .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
-                .DeleteAsync()
-                .ReceiveJson();
+        private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}/{Id}"
+                   .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
+                   .DeleteAsync()
+                   .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
 
-        private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action)
-            => await $@"{UrlApi}/{Uri}/{Param}/{Action}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PostAsync(null)
-                .ReceiveJson();
+            return Result;
+        }
 
-        private async Task<dynamic> PostByAnythingAsync(String Uri, Object Requster)
-            => await $@"{UrlApi}/{Uri}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PostJsonAsync(Requster)
-                .ReceiveJson();
+        private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}/{Param}/{Action}"
+                    .WithBasicAuth(Convert.ToString(Authorization), "")
+                    .PostAsync(null)
+                    .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error); 
+            }
 
-        private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster)
-            => await $@"{UrlApi}/{Uri}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PutJsonAsync(Requster)
-                .ReceiveJson();
+            return Result;
+        }
 
-        private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester)
-            => await $@"{UrlApi}/{Uri}/{Id}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .PutJsonAsync(Requester).ReceiveJson();
+        private async Task<dynamic> PostByAnythingAsync(String Uri, Object Requster) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}"
+                    .WithBasicAuth(Convert.ToString(Authorization), "")
+                    .PostJsonAsync(Requster)
+                    .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+
+            return Result;
+        }
+
+        private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}"
+                   .WithBasicAuth(Convert.ToString(Authorization), "")
+                   .PutJsonAsync(Requster)
+                   .ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+            return Result;
+        }
+
+        private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}/{Id}"
+                    .WithBasicAuth(Convert.ToString(Authorization), "")
+                    .PutJsonAsync(Requester).ReceiveJson();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+            return Result;
+        }
         
         private static T FromDynamicTo<T>(dynamic d) where T : class {
             var p = JsonConvert.SerializeObject(d);
@@ -75,10 +122,19 @@ namespace Vindi
         private static string QueryString(IDictionary<FilterSearch, String> Query)
             => Query != null ? $"&query={String.Join(" ", Query.Select(x => $"{x.Key.ToString()}:{x.Value}"))}" : String.Empty;
 
-        private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc)
-            => await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
-                .WithBasicAuth(Convert.ToString(Authorization), "")
-                .GetJsonAsync();
+        private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+            dynamic Result = "";
+            try {
+                Result = await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
+                   .WithBasicAuth(Convert.ToString(Authorization), "")
+                   .GetJsonAsync();
+            } catch (FlurlHttpException Excep) {
+                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
+                String Error = Excep.Message + " - " + Excep.InnerException;
+                throw new Exception(Error);
+            }
+            return Result;
+        }
 
         private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id)
             => await $@"{UrlApi}/{Uri}/{Id}"
@@ -107,6 +163,29 @@ namespace Vindi
             return FromDynamicTo<ProductItems>(result?.product_item);
         }
 
+        //Pesquisa o plano pelo nome ou codigo informado.
+        public dynamic GetByAnythingAsync(Product Product, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Product.PricingSchema.Price)) {
+                        Query.Add(FilterSearch.price, Product.PricingSchema.Price);
+                    } else if (!String.IsNullOrEmpty(Product.Name)) {
+                        Query.Add(FilterSearch.name, Product.Name);
+                    }
+
+                    Result = GetByAnythingAsync(Product, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Product).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
         //Retorna todos os Planos
         public async Task<IEnumerable<Plan>> GetByAnythingAsync(Plan Plan, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("plans", Query, Page, PerPage, filterSearch, sortOrder);
@@ -119,10 +198,56 @@ namespace Vindi
             return FromDynamicTo<Plan>(result?.plan);
         }
 
+        //Pesquisa o plano pelo nome ou codigo informado.
+        public dynamic GetByAnythingAsync(Plan Plan, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Plan.Code)) {
+                        Query.Add(FilterSearch.code, Plan.Code);
+                    } else if (!String.IsNullOrEmpty(Plan.Name)) {
+                        Query.Add(FilterSearch.name, Plan.Name);
+                    }
+
+                    Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Plan).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
         //Retorna todos os clientes
         public async Task<IEnumerable<Customer>> GetByAnythingAsync(Customer Customer,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("customers", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Customer>>(list?.customers);
+        }
+
+        //Pesquisa o Cliente pelo CPF ou Codigo informado.
+        public dynamic GetByAnythingAsync(Customer Customer, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (!String.IsNullOrEmpty(Customer.RegistryCode)) {
+                        Query.Add(FilterSearch.registry_code, Customer.RegistryCode);
+                    }else if (!String.IsNullOrEmpty(Customer.Code)) {
+                        Query.Add(FilterSearch.code, Customer.Code);
+                    }
+
+                    Result = GetByAnythingAsync(Customer, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Customer).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
         }
 
         //Retorna o cliente pelo id informado
@@ -141,6 +266,27 @@ namespace Vindi
         public async Task<Subscription> GetByIdAnythingAsync(Subscription Subscription) {
             var result = await SearchByIdAsync("subscriptions", Subscription.Id);
             return FromDynamicTo<Subscription>(result?.subscription);
+        }
+
+        //Pesquisa a assinatura de um cliente pelo id do cliente informado.
+        public dynamic GetByAnythingAsync(Subscription Subscription, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (Subscription.Customer.Id > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(Subscription.Customer.Id));
+                        Query.Add(FilterSearch.status, "active");
+                    } 
+                    Result = GetByAnythingAsync(Subscription, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Subscription).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
         }
 
         //Retorna todos os periodos
@@ -178,6 +324,32 @@ namespace Vindi
             var result = await SearchByIdAsync("payment_profiles", PaymentProfile.Id);
             return FromDynamicTo<PaymentProfile>(result?.payment_profile);
         }
+
+        //Pesquisa o perfil de pagamento de uma cliente pelo id do cliente ou cpf informado.
+        public dynamic GetByAnythingAsync(PaymentProfile PaymentProfile, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (PaymentProfile.CustomerId > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(PaymentProfile.CustomerId));
+                        Query.Add(FilterSearch.status, "active");
+                    } else if (!String.IsNullOrEmpty(PaymentProfile.Customer.RegistryCode)) {
+                        Query.Add(FilterSearch.registry_code, PaymentProfile.Customer.RegistryCode);
+                        Query.Add(FilterSearch.status, "active");
+                    }
+
+                    Result = GetByAnythingAsync(PaymentProfile, Query).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(PaymentProfile).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
 
         //Retorna todas as cobranças
         public async Task<IEnumerable<Charge>> GetByAnythingAsync(Charge Charge,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.created_at, SortOrder sortOrder = SortOrder.asc) {
@@ -315,41 +487,35 @@ namespace Vindi
 
         #region Post Methods
 
-
         //Cadastra o periodo de um plano passando sua entidade (Period)
         public async Task<Period> CreateAnythingAsync(Period NewPeriod) {
             var result = await PostByAnythingAsync("periods", NewPeriod);
             return FromDynamicTo<Period>(result?.period);
         }
 
+        //Cadastra um perfil de pagamento de um cliente passando sua entidade (PaymentProfile)
+        public async Task<PaymentProfile> CreateAnythingAsync(PaymentProfile NewPaymentProfile) {
+            var result = await PostByAnythingAsync("payment_profiles", NewPaymentProfile);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
+        }
+
+        public async Task<PaymentProfile> CreateDynamicAnythingAsync(PaymentProfile NewPaymentProfile) {
+            dynamic Payload = NewPaymentProfile;
+            var result = await PostByAnythingAsync("payment_profiles", Payload);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
+        }
+
         //Cadastra um plano passando sua entidade (Plan)
-        public async Task<Plan> CreateAnythingAsync(Plan NewPlan) {
+        public async Task<Plan> CreateAnythingAsync(CreatePlanRequester NewPlan) {
             var result = await PostByAnythingAsync("plans", NewPlan);
             return FromDynamicTo<Plan>(result?.plan);
         }
-        public async Task<Plan> CreateAnythingAsync(dynamic NewPlan) {
-            var result = await PostByAnythingAsync("plans", NewPlan);
-            return FromDynamicTo<Plan>(result?.plan);
-        }
-
-        //Cadastra os itens do plano passando sua entidade (PlanItems)
-        public async Task<PlanItems> CreateAnythingAsync(PlanItems NewPlanItems) {
-            var result = await PostByAnythingAsync("plan_items", NewPlanItems);
-            return FromDynamicTo<PlanItems>(result?.plan_items);
-        }
-
+        
         //Cadastra o produto do item do plano passando sua entidade (Product)
         public async Task<Product> CreateAnythingAsync(Product NewProduct) {
             var result = await PostByAnythingAsync("products", NewProduct);
             return FromDynamicTo<Product>(result?.product);
         }
-
-        //Cadastra o produto do item do plano passando sua entidade (Product)
-        public async Task<ProductItems> CreateAnythingAsync(ProductItems NewProductItems) {
-            var result = await PostByAnythingAsync("product_items", NewProductItems);
-            return FromDynamicTo<ProductItems>(result?.product_items);
-        }
-
 
         //Cadastra um cliente passando sua entidade (Customer).
         public async Task<Customer> CreateAnythingAsync(Customer NewCustomer) {
@@ -380,11 +546,26 @@ namespace Vindi
         #endregion
 
         #region Put Methods
+
         //Atualiza um cliente passando sua entidade(Customer) com os dados a serem atualizados.
         public async Task<Customer> UpdateAnythingAsync(Customer CustomerEdit){
             dynamic Payload = CustomerEdit;
             var result = await PutByIdAsync("customers", CustomerEdit.Id, Payload);
             return FromDynamicTo<Customer>(result?.customer);
+        }
+
+        //Atualiza um produto passando sua entidade(Product) com os dados a serem atualizados.
+        public async Task<Product> UpdateAnythingAsync(Product ProductEdit) {
+            dynamic Payload = ProductEdit;
+            var result = await PutByIdAsync("products", ProductEdit.Id, Payload);
+            return FromDynamicTo<Product>(result?.product);
+        }
+
+        //Atualiza um plano passando sua entidade(Plan) com os dados a serem atualizados.
+        public async Task<Plan> UpdateAnythingAsync(Plan PlanEdit) {
+            dynamic Payload = PlanEdit;
+            var result = await PutByIdAsync("plans", PlanEdit.Id, Payload);
+            return FromDynamicTo<Plan>(result?.plan);
         }
 
         //Atualiza uma assinatura passando sua entidadade(Subscription) com os dados a serem atualizados.
@@ -403,6 +584,18 @@ namespace Vindi
         public async Task<Customer> DeleteAnythingAsync(Customer DeleteCustomer) {
             var result = await DeleteByIdAsync("customers", DeleteCustomer.Id);
             return FromDynamicTo<Customer>(result?.customer);
+        }
+
+        //Deleta o perfil de pagamento pelo id informado.
+        public async Task<PaymentProfile> DeleteAnythingAsync(PaymentProfile DeletePaymentProfile) {
+            var result = await DeleteByIdAsync("payment_profiles", DeletePaymentProfile.Id);
+            return FromDynamicTo<PaymentProfile>(result?.payment_profile);
+        }
+
+        //Deleta o plano pelo id informado.
+        public async Task<Plan> DeleteAnythingAsync(Plan Plan) {
+            var result = await DeleteByIdAsync("plans", Plan.Id);
+            return FromDynamicTo<Plan>(result?.plan);
         }
 
         //Deleta a assinatura pelo id informado.
