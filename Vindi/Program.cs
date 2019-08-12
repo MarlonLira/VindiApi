@@ -8,6 +8,17 @@ namespace Vindi
     {
         static void Main(string[] args) {
             Vindi Vindi = new Vindi();
+            PaymentMethods PayMethodsEdit;
+
+            //Metodo de Pagamento Debito Automatico
+            /*PayMethodsEdit = new PaymentMethods() {
+                Code = "bank_debit"
+            };*/
+
+            //Metodo de Pagamento Cartão de Credito
+            PayMethodsEdit = new PaymentMethods() {
+                Code = "credit_card"
+            };
 
             Product NewProduct = new Product();
             NewProduct.Code = "5876";
@@ -65,6 +76,7 @@ namespace Vindi
             Pf.CardNumber = "4444444444444448";
             Pf.CardExpiration = "12/2019";
             Pf.CardCvv = "123";
+            Pf.PaymentMethod = PayMethodsEdit;
 
             var Result2 = Vindi.DeleteSubscription(Cliente2);
             var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);

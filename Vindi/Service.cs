@@ -585,7 +585,6 @@ namespace Vindi
             return FromDynamicTo<Subscription>(result?.subscription);
         }
 
-
         #endregion
 
         #region Delete Methods

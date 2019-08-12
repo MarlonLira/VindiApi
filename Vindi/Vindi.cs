@@ -21,7 +21,6 @@ namespace Vindi {
             CreatePlanRequester PlanResquester;
             Plan PlanEdit;
             PlanItems[] PlanItemsEdit;
-            PaymentMethods PayMethodsEdit;
             PaymentProfile PayProfileEdit;
             DateTime CurrentDate = DateTime.UtcNow.AddHours(-3);
             dynamic Result;
@@ -46,7 +45,7 @@ namespace Vindi {
                                 break;
                             }
                         } else if (FoundClient.Count > 1) {
-                            throw new Exception("Existe mais de 1(um) cadastro para esse cliente.");
+                            throw new Exception("Existe mais de 1(um) cadastro para esse cliente, entre em contato com o suporte!");
                         } else if (FoundClient.Count == 0) {
                             //Cria um novo Cliente
                             var NewClient = CreateAnythingAsync(CustomerEdit);
@@ -144,16 +143,6 @@ namespace Vindi {
                     }
                 }
 
-                //Metodo de Pagamento Debito Automatico
-                /*PayMethodsEdit = new PaymentMethods() {
-                    Code = "bank_debit"
-                };*/
-
-                //Metodo de Pagamento Cartão de Credito
-                PayMethodsEdit = new PaymentMethods() {
-                    Code = "credit_card"
-                };
-
                 /* Pesquisa se o aluno já possui uma assinatura, caso possua verifica se possui 
                  * um determinado numero de dias para o fim da assinatura, caso não possua o processo de assinatura continua normalmente.
                  */
@@ -178,7 +167,7 @@ namespace Vindi {
                 NewSub = new SubscriptionRequester() {
                     CustomerId = CustomerEdit.Id,
                     PlanId = PlanEdit.Id,
-                    PaymentMethodCode = PayMethodsEdit.Code
+                    PaymentMethodCode = PayProfileEdit.PaymentMethodCode
                 };
 
                 Result = CreateAnythingAsync(NewSub);

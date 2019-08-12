@@ -79,10 +79,43 @@ namespace Vindi
         }
 
         [JsonProperty("payment_method_code")]
-        public String PaymentMethodCode { get; set; }
+        public String PaymentMethodCode {
+            get {
+                String NewPaymentMethodCode = "";
+                if (PaymentMethod != null) {
+                    NewPaymentMethodCode = PaymentMethod.Code;
+                }
+
+                return NewPaymentMethodCode;
+            }
+            set {
+                if (PaymentMethod != null) {
+                    PaymentMethod.Code = value;
+                } else {
+                    throw new Exception("A entidade PaymentMethod não pode estar nula");
+                }
+            }
+
+        }
 
         [JsonProperty("payment_company_code")]
-        public String PaymentCompanyCode { get; set; }
+        public String PaymentCompanyCode {
+            get {
+                String NewPaymentCompanyCode = "";
+                if (PaymentCompany != null) {
+                    NewPaymentCompanyCode = PaymentCompany.Code;
+                }
+                return NewPaymentCompanyCode;
+            }
+
+            set {
+                if (PaymentCompany != null) {
+                    PaymentCompany.Code = value;
+                } else {
+                    throw new Exception("A entidade PaymentCompany não pode estar nula");
+                }
+            }
+        }
 
         [JsonProperty("card_number")]
         public String CardNumber { get; set; }
