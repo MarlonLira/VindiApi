@@ -21,9 +21,9 @@ namespace Vindi
             };
 
             Product NewProduct = new Product();
-            NewProduct.Code = "5876";
-            NewProduct.Name = "Mensalidade 59,90";
-            NewProduct.PricingSchema = new PricingSchema() { Price = "59.9" };
+            NewProduct.Code = "5376";
+            NewProduct.Name = "Mensalidade 55,90";
+            NewProduct.PricingSchema = new PricingSchema() { Price = "55.9" };
 
             //NewProduct = (Product)Vindi.CreateAnythingAsync(NewProduct);
             var Products = Vindi.GetByAnythingAsync(NewProduct, true);
@@ -40,7 +40,7 @@ namespace Vindi
             Cliente.Email = "cbduarte@gmail.com";
 
             Customer Cliente2 = new Customer();
-            Cliente2.RegistryCode = null;
+            Cliente2.RegistryCode = "09177350480";
             Cliente2.Code = "6685855";
 
             var findCliente2 = Vindi.GetByAnythingAsync(Cliente2, true);
@@ -49,8 +49,8 @@ namespace Vindi
             planItems.Product = NewProduct;
 
             Plan Plan = new Plan();
-            Plan.Name = "Anual livre 59,90";
-            Plan.Code = "82299";
+            Plan.Name = "Anual livre 55,90";
+            Plan.Code = "79299";
             Plan.BillingCycles = 12;
             Plan.BillingTriggerType = "beginning_of_period";
             Plan.Interval = "months";
@@ -78,11 +78,12 @@ namespace Vindi
             Pf.CardCvv = "123";
             Pf.PaymentMethod = PayMethodsEdit;
 
-            var Result2 = Vindi.DeleteSubscription(Cliente2);
+            //var Result2 = Vindi.DeleteSubscription(Cliente2);
             var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);
 
             Subscription Sub = (Subscription)Result;
-            Console.WriteLine("Code: " + "\n Cliente: " + Sub.Customer.Name + " /n CPF: " + "\n Plano: " + Sub.Plan.Name + "\n Preço: ");
+            List<Subscription> LSub = new List<Subscription>() { Sub };
+            Console.WriteLine(LSub.ToString());
             Console.WriteLine("Hello World!");
             Console.ReadKey();
         

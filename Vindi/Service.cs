@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vindi.Requesters;
@@ -210,7 +211,7 @@ namespace Vindi
                         if (Result.Count < 1) {
                             Query.Clear();
                         }
-                        Query.Add(FilterSearch.name, Plan.Name);
+                        Query.Add(FilterSearch.name, "'"+Plan.Name+"'");
                         Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
                     }
 
