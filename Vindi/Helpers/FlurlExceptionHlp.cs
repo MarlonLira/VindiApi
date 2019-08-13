@@ -25,16 +25,14 @@ namespace Vindi.Helpers
             Result = Result.Replace('"', ' ');
             Result = Result.Replace(":", "");
             Result = Result.Replace(",", "");
-            Result = Result.Replace("errors", "parâmetros Invalidos: ");
+            Result = Result.Replace("errors", "Parâmetros Invalidos: ");
             Result = Result.Replace("invalid_parameter", "");
             Result = Result.Replace("parameter", "");
             Result = Result.Replace("message", "");
-            //Result = Result.Replace("  ", " ");
             Result = Result.Replace("   ", " ");
             Result = Result.Replace("  ", " ");
-           
-
-            Result.Trim();
+            Result = Result.Replace("id ", "\n");
+            Result = Result.Trim();
 
             return Result;
         }

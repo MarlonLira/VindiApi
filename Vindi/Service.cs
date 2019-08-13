@@ -80,7 +80,6 @@ namespace Vindi
                 String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
-
             return Result;
         }
         private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster) {
