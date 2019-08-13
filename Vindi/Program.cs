@@ -7,7 +7,10 @@ namespace Vindi
     class Program
     {
         static void Main(string[] args) {
-            Vindi Vindi = new Vindi();
+            
+            Vindi Vindi = new Vindi() {
+                Config = new Configuration("https://app.vindi.com.br", 1, "XlZBPa4zUhX1In4T9yHloj83WNaJf0i7V386V_Q2xQk")
+            };
             PaymentMethods PayMethodsEdit;
 
             //Metodo de Pagamento Debito Automatico
@@ -22,8 +25,8 @@ namespace Vindi
 
             Product NewProduct = new Product();
             NewProduct.Code = "5376";
-            NewProduct.Name = "Mensalidade 55,90";
-            NewProduct.PricingSchema = new PricingSchema() { Price = "55.9" };
+            NewProduct.Name = "Mensalidade 54,90";
+            NewProduct.PricingSchema = new PricingSchema() { Price = "54.9" };
 
             //NewProduct = (Product)Vindi.CreateAnythingAsync(NewProduct);
             var Products = Vindi.GetByAnythingAsync(NewProduct, true);
@@ -38,6 +41,13 @@ namespace Vindi
             Cliente.Name = "Carlos Duarte";
             Cliente.Code = "777888";
             Cliente.Email = "cbduarte@gmail.com";
+            Cliente.Phones = new Phone[] {
+                 new Phone() {
+                      Number = "81985665588"
+                 }
+            };
+
+            var re = Vindi.CreateAnythingAsync(Cliente);
 
             Customer Cliente2 = new Customer();
             Cliente2.RegistryCode = "09177350480";
@@ -49,7 +59,7 @@ namespace Vindi
             planItems.Product = NewProduct;
 
             Plan Plan = new Plan();
-            Plan.Name = "Anual livre 55,90";
+            Plan.Name = "Anual livre 54,90";
             Plan.Code = "79299";
             Plan.BillingCycles = 12;
             Plan.BillingTriggerType = "beginning_of_period";

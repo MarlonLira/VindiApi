@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Vindi.Helpers;
 using Vindi.Requesters;
 
 namespace Vindi
@@ -16,6 +18,7 @@ namespace Vindi
 
         private Object Authorization;
         private String UrlApi;
+        private FlurlExceptionHlp FExceptionHlp;
 
         #endregion
 
@@ -43,10 +46,10 @@ namespace Vindi
                    .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
                    .DeleteAsync()
                    .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                throw new Exception(ExceptResult);
             }
 
             return Result;
@@ -58,10 +61,10 @@ namespace Vindi
                     .WithBasicAuth(Convert.ToString(Authorization), "")
                     .PostAsync(null)
                     .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error); 
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                throw new Exception(ExceptResult);
             }
 
             return Result;
@@ -74,10 +77,10 @@ namespace Vindi
                     .WithBasicAuth(Convert.ToString(Authorization), "")
                     .PostJsonAsync(Requster)
                     .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
+                throw new Exception(ExceptResult);
             }
 
             return Result;
@@ -89,10 +92,10 @@ namespace Vindi
                    .WithBasicAuth(Convert.ToString(Authorization), "")
                    .PutJsonAsync(Requster)
                    .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                throw new Exception(ExceptResult);
             }
             return Result;
         }
@@ -102,10 +105,10 @@ namespace Vindi
                 Result = await $@"{UrlApi}/{Uri}/{Id}"
                     .WithBasicAuth(Convert.ToString(Authorization), "")
                     .PutJsonAsync(Requester).ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                throw new Exception(ExceptResult);
             }
             return Result;
         }
@@ -124,10 +127,10 @@ namespace Vindi
                 Result = await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
                    .WithBasicAuth(Convert.ToString(Authorization), "")
                    .GetJsonAsync();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                throw new Exception(ExceptResult);
             }
             return Result;
         }
