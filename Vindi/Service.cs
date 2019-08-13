@@ -3,9 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Vindi.Helpers;
 using Vindi.Requesters;
@@ -48,7 +46,7 @@ namespace Vindi
                    .ReceiveJson();
             } catch (FlurlHttpException Except) {
                 FExceptionHlp = new FlurlExceptionHlp();
-                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
 
@@ -63,7 +61,7 @@ namespace Vindi
                     .ReceiveJson();
             } catch (FlurlHttpException Except) {
                 FExceptionHlp = new FlurlExceptionHlp();
-                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
 
@@ -94,7 +92,7 @@ namespace Vindi
                    .ReceiveJson();
             } catch (FlurlHttpException Except) {
                 FExceptionHlp = new FlurlExceptionHlp();
-                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
             return Result;
@@ -107,7 +105,7 @@ namespace Vindi
                     .PutJsonAsync(Requester).ReceiveJson();
             } catch (FlurlHttpException Except) {
                 FExceptionHlp = new FlurlExceptionHlp();
-                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
             return Result;
