@@ -54,8 +54,8 @@ namespace Vindi {
                     }
                 }
 
-                /* Pesquisa se o cliente possui um perfil de pagamendo disponivel pelo id ou cpf caso não encontre 
-                 * tenta cadastra um novo perfil de pagamento com as informações passadas e da prosseguimento no processo de Assinatura caso consiga 
+                /* Pesquisa se o cliente possui um perfil de pagamendo disponivel pelo id ou cpf do cliente caso não encontre ou seja passado dados diferentes 
+                 * tenta cadastra um novo perfil de pagamento com as informações passadas e da prosseguimento no processo de Assinatura caso consiga. 
                  */
                 if (PayProfileEdit == null) {
                     PayProfileEdit = new PaymentProfile();
@@ -73,7 +73,7 @@ namespace Vindi {
                     if (FoundPaymentProfiles.Count == 0) {
                         /*Cria um perfil de pagamento para o cliente, caso tenha sido passada as informações necessarias.*/
                         if (PayMentProfile != null) {
-                            /* Deleta o perfil antigo se tiver, caso seja informado os dados necessarios para a troca de perfis de pagamento do cliene*/
+                            /* Deleta o perfil antigo se tiver, caso seja informado os dados necessarios para a troca de perfis de pagamento do cliente*/
                             PaymentProfile DeleteOldProfile = null;
                             if (IsNewProfile == true) {
                                 FindPayProfile = (List<PaymentProfile>)GetByAnythingAsync(PayProfileEdit, true);
@@ -200,7 +200,7 @@ namespace Vindi {
                         }
                     }
                 } else {
-                    throw new Exception("Os dados do aluno não foram informados");
+                    throw new Exception("Os dados necessario para o cancelamento do aluno não foram informados");
                 }
 
                 /*Procura a assinatura usando o id do aluno recuperado acima*/
@@ -243,8 +243,8 @@ namespace Vindi {
             dynamic Result;
             try {
                 Result = Service.CreateAnythingAsync(Entitie).GetAwaiter().GetResult();
-            } catch (Exception Excep) {
-                throw new Exception(Excep.Message);
+            } catch (Exception Except) {
+                throw new Exception(Except.Message);
             }
             return Result;
         }
@@ -252,14 +252,22 @@ namespace Vindi {
         public dynamic UpdateAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
             dynamic Result;
-            Result = Service.UpdateAnythingAsync(Entitie).GetAwaiter().GetResult();
+            try{
+                Result = Service.UpdateAnythingAsync(Entitie).GetAwaiter().GetResult();
+            } catch (Exception Except) {
+                throw new Exception(Except.Message);
+            }
             return Result;
         }
 
         public dynamic DeleteAnythingAsync(dynamic Entitie) {
             Service = new Service(Config);
             dynamic Result;
-            Result = Service.DeleteAnythingAsync(Entitie).GetAwaiter().GetResult();
+            try {
+                Result = Service.DeleteAnythingAsync(Entitie).GetAwaiter().GetResult();
+            } catch (Exception Except) {
+                throw new Exception(Except.Message);
+            }
             return Result;
         }
 
