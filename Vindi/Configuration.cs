@@ -1,6 +1,6 @@
 ﻿namespace Vindi
 {
-    class Configuration
+    public class Configuration
     {
         #region Constructor
 

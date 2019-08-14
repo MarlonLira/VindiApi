@@ -3,7 +3,7 @@ using System;
 
 namespace Vindi.Models
 {
-    class Transaction
+    public class Transaction
     {
         [JsonProperty("id")]
         public Int32 Id { get; set; }

@@ -4,7 +4,7 @@ using Vindi.Models;
 
 namespace Vindi.Requesters
 {
-    class CreatePlanRequester
+    public class CreatePlanRequester
     {
         [JsonProperty("name")]
         public string Name {
@@ -107,7 +107,7 @@ namespace Vindi.Requesters
         public Plan Plan { get; set; }
     }
 
-    class PlanItemRequester {
+    public class PlanItemRequester {
         
         [JsonProperty("product_id")]
         public Int32 ProductId { get; set; }

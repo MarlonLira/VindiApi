@@ -4,7 +4,7 @@ using Vindi.Models;
 using Vindi.Requesters;
 
 namespace Vindi {
-    class Vindi {
+    public class Vindi {
 
         #region Configs
 

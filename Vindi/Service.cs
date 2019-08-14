@@ -11,7 +11,7 @@ using Vindi.Models;
 
 namespace Vindi
 {
-    class Service
+    public class Service
     {
         #region Atributes
 
