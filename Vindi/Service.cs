@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vindi.Helpers;
 using Vindi.Requesters;
 
 namespace Vindi
@@ -15,6 +16,7 @@ namespace Vindi
 
         private Object Authorization;
         private String UrlApi;
+        private FlurlExceptionHlp FExceptionHlp;
 
         #endregion
 
@@ -42,15 +44,14 @@ namespace Vindi
                    .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
                    .DeleteAsync()
                    .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
+                throw new Exception(ExceptResult);
             }
 
             return Result;
         }
-
         private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action) {
             dynamic Result = "";
             try {
@@ -58,10 +59,10 @@ namespace Vindi
                     .WithBasicAuth(Convert.ToString(Authorization), "")
                     .PostAsync(null)
                     .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error); 
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
+                throw new Exception(ExceptResult);
             }
 
             return Result;
@@ -74,15 +75,13 @@ namespace Vindi
                     .WithBasicAuth(Convert.ToString(Authorization), "")
                     .PostJsonAsync(Requster)
                     .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
+                throw new Exception(ExceptResult);
             }
-
             return Result;
         }
-
         private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster) {
             dynamic Result = "";
             try {
@@ -90,35 +89,32 @@ namespace Vindi
                    .WithBasicAuth(Convert.ToString(Authorization), "")
                    .PutJsonAsync(Requster)
                    .ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
+                throw new Exception(ExceptResult);
             }
             return Result;
         }
-
         private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester) {
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Id}"
                     .WithBasicAuth(Convert.ToString(Authorization), "")
                     .PutJsonAsync(Requester).ReceiveJson();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
+                throw new Exception(ExceptResult);
             }
             return Result;
         }
-        
         private static T FromDynamicTo<T>(dynamic d) where T : class {
             var p = JsonConvert.SerializeObject(d);
             if (p.StartsWith("["))
                 return JArray.Parse(p).ToObject<T>();
             return JObject.Parse(p).ToObject<T>();
         }
-
         private static string QueryString(IDictionary<FilterSearch, String> Query)
             => Query != null ? $"&query={String.Join(" ", Query.Select(x => $"{x.Key.ToString()}:{x.Value}"))}" : String.Empty;
 
@@ -128,14 +124,13 @@ namespace Vindi
                 Result = await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
                    .WithBasicAuth(Convert.ToString(Authorization), "")
                    .GetJsonAsync();
-            } catch (FlurlHttpException Excep) {
-                dynamic d = Excep.GetResponseJsonAsync().GetAwaiter().GetResult();
-                String Error = Excep.Message + " - " + Excep.InnerException;
-                throw new Exception(Error);
+            } catch (FlurlHttpException Except) {
+                FExceptionHlp = new FlurlExceptionHlp();
+                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                throw new Exception(ExceptResult);
             }
             return Result;
         }
-
         private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id)
             => await $@"{UrlApi}/{Uri}/{Id}"
                 .WithBasicAuth(Convert.ToString(Authorization), "")
@@ -163,7 +158,7 @@ namespace Vindi
             return FromDynamicTo<ProductItems>(result?.product_item);
         }
 
-        //Pesquisa o plano pelo nome ou codigo informado.
+        //Pesquisa o produto pelo preço ou nome informado.
         public dynamic GetByAnythingAsync(Product Product, Boolean IsforQuery) {
             dynamic Result = null;
             IDictionary<FilterSearch, String> Query;
@@ -207,11 +202,19 @@ namespace Vindi
                     Query = new Dictionary<FilterSearch, String>();
                     if (!String.IsNullOrEmpty(Plan.Code)) {
                         Query.Add(FilterSearch.code, Plan.Code);
-                    } else if (!String.IsNullOrEmpty(Plan.Name)) {
-                        Query.Add(FilterSearch.name, Plan.Name);
+                        Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
+                    } else {
+                        Result = new List<Plan>();
+                    }
+                    
+                    if (!String.IsNullOrEmpty(Plan.Name) && (Result.Count <= 0 || Result.Count > 1)) {
+                        if (Result.Count < 1) {
+                            Query.Clear();
+                        }
+                        Query.Add(FilterSearch.name, "'"+Plan.Name+"'");
+                        Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
                     }
 
-                    Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
                 } else {
                     Result = GetByAnythingAsync(Plan).GetAwaiter().GetResult();
                 }
@@ -236,11 +239,19 @@ namespace Vindi
                     Query = new Dictionary<FilterSearch, String>();
                     if (!String.IsNullOrEmpty(Customer.RegistryCode)) {
                         Query.Add(FilterSearch.registry_code, Customer.RegistryCode);
-                    }else if (!String.IsNullOrEmpty(Customer.Code)) {
-                        Query.Add(FilterSearch.code, Customer.Code);
+                        Result = GetByAnythingAsync(Customer, Query).GetAwaiter().GetResult();
+                    } else {
+                        Result = new List<Customer>();
                     }
-
-                    Result = GetByAnythingAsync(Customer, Query).GetAwaiter().GetResult();
+                    
+                    if (!String.IsNullOrEmpty(Customer.Code) && (Result.Count <= 0 || Result.Count > 1)) {
+                        if (Result.Count < 1) {
+                            Query.Clear();
+                        }
+                        
+                        Query.Add(FilterSearch.code, Customer.Code);
+                        Result = GetByAnythingAsync(Customer, Query).GetAwaiter().GetResult();
+                    }
                 } else {
                     Result = GetByAnythingAsync(Customer).GetAwaiter().GetResult();
                 }
@@ -574,7 +585,6 @@ namespace Vindi
             var result = await PutByIdAsync("subscriptions", SubscriptionEdit.Id, Payload);
             return FromDynamicTo<Subscription>(result?.subscription);
         }
-
 
         #endregion
 

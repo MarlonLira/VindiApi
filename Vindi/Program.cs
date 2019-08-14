@@ -8,134 +8,98 @@ namespace Vindi
     {
         static void Main(string[] args) {
 
+            try {
+                Vindi Vindi = new Vindi() {
+                    Config = new Configuration("https://app.vindi.com.br", 1, "XlZBPa4zUhX1In4T9yHloj83WNaJf0i7V386V_Q2xQk")
+                };
+                PaymentMethods PayMethodsEdit;
 
-            /*
-            Configuration Config = new Configuration("https://app.vindi.com.br", 1, "XlZBPa4zUhX1In4T9yHloj83WNaJf0i7V386V_Q2xQk");
-            Service Service = new Service(Config);*/
-            /*
-            
+                //Metodo de Pagamento Debito Automatico
+                /*PayMethodsEdit = new PaymentMethods() {
+                    Code = "bank_debit"
+                };*/
 
-            //1
-            var Product = Vindi.GetByAnythingAsync(new Product());
+                //Metodo de Pagamento Cartão de Credito
+                PayMethodsEdit = new PaymentMethods() {
+                    Code = "credit_card"
+                };
 
-            List<Product> products = (List<Product>)Product;
+                Product NewProduct = new Product();
+                NewProduct.Code = "5376";
+                NewProduct.Name = "Mensalidade 54,90";
+                NewProduct.PricingSchema = new PricingSchema() { Price = "54.9" };
 
-            Product Product2 = new Product();
-            foreach (Product product in products) {
-                Product2 = product;
-                Console.WriteLine(product.Id + " - "+ product.Code + " - " + product.Name + " - " + product.Status);
-            }
+                //NewProduct = (Product)Vindi.CreateAnythingAsync(NewProduct);
+                var Products = Vindi.GetByAnythingAsync(NewProduct, true);
+                List<Product> FindProduct = (List<Product>)Products;
+                foreach (Product ProductEdit in FindProduct) {
+                    NewProduct = ProductEdit;
+                    break;
+                }
 
-            //2
-            ProductItems PItens = new ProductItems();
-            PItens.Product = Product2;
-
-            Plan plan = new Plan() {
-                Id = 114950
+                Customer Cliente = new Customer();
+                Cliente.RegistryCode = "79089806008";
+                Cliente.Name = "Carlos Duarte";
+                Cliente.Code = "777888";
+                Cliente.Email = "cbduarte@gmail.com";
+                Cliente.Phones = new Phone[] {
+                 new Phone() {
+                      Number = "81985665588"
+                 }
             };
 
-            //3
-            Customer customer = new Customer();
-            customer.Id = 11082668;
-            customer.Name = "José da Silva";
-            customer.RegistryCode = "27721264391";
+                var re = Vindi.CreateAnythingAsync(Cliente);
 
-            customer = Vindi.GetByAnythingAsync(customer, true);
-            //3
-            PaymentMethods Pm = new PaymentMethods();
-            Pm.Code = "credit_card";
+                Customer Cliente2 = new Customer();
+                Cliente2.RegistryCode = "09177350480";
+                Cliente2.Code = "6685855";
 
-            PaymentCompany Pc = new PaymentCompany();
-            Pc.Code = "mastercard";
+                var findCliente2 = Vindi.GetByAnythingAsync(Cliente2, true);
 
-            //4
-            PaymentProfile Pf = new PaymentProfile();
-            Pf.RegistryCode = "27721264391";
-            Pf.HolderName = "José da Silva";
-            Pf.Customer = customer;
-            Pf.PaymentCompany = Pc;
-            Pf.PaymentMethod = Pm;
-            Pf.CardNumber = "5167454851671773";
-            Pf.CardExpiration = "12/2019";
-            Pf.CardCvv = "123";
+                PlanItems planItems = new PlanItems();
+                planItems.Product = NewProduct;
 
-            var Profile = Vindi.GetByAnythingAsync(new PaymentProfile());
+                Plan Plan = new Plan();
+                Plan.Name = "Anual livre 54,90";
+                Plan.Code = "79299";
+                Plan.BillingCycles = 12;
+                Plan.BillingTriggerType = "beginning_of_period";
+                Plan.Interval = "months";
+                Plan.IntervalName = "Mensalidade";
+                Plan.IntervalCount = 1;
+                Plan.Installments = "1";
+                Plan.BillingTriggerDay = "0";
+                Plan.PlanItems = new PlanItems[] { planItems };
 
-            //var Result = Vindi.CreateAnythingAsync(Pf);
+                /*CreatePlanRequester createPlan = new CreatePlanRequester();
+                createPlan.Plan = Plan;*/
+                /*
+                var Re = Vindi.CreateAnythingAsync(createPlan);*/
 
-            customer = Vindi.GetByAnythingAsync(customer, true);
+                PaymentCompany Pc = new PaymentCompany();
+                Pc.Code = "visa";
 
-            //5
-            SubscriptionRequester Sub = new SubscriptionRequester();
+                PaymentProfile Pf = new PaymentProfile();
+                Pf.RegistryCode = "79089806008";
+                Pf.HolderName = "Carlos Duarte";
+                Pf.Customer = Cliente;
+                Pf.PaymentCompany = Pc;
+                Pf.CardNumber = "4444444444444448";
+                Pf.CardExpiration = "12/2019";
+                Pf.CardCvv = "123";
+                Pf.PaymentMethod = PayMethodsEdit;
 
-            Sub.CustomerId = customer.Id;
-            Sub.PlanId = plan.Id;
-            Sub.PaymentMethodCode = Pm.Code;
+                //var Result2 = Vindi.DeleteSubscription(Cliente2);
+                var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);
 
-            var SubResult = Vindi.CreateAnythingAsync(Sub);*/
-            Vindi Vindi = new Vindi();
-
-            Product NewProduct = new Product();
-            NewProduct.Code = "5876";
-            NewProduct.Name = "Mensalidade 59,90";
-            NewProduct.PricingSchema = new PricingSchema() { Price = "59.9" };
-
-            //NewProduct = (Product)Vindi.CreateAnythingAsync(NewProduct);
-            var Products = Vindi.GetByAnythingAsync(NewProduct, true);
-            List<Product> FindProduct = (List<Product>)Products;
-            foreach (Product ProductEdit in FindProduct) {
-                NewProduct = ProductEdit;
-                break;
+                Subscription Sub = (Subscription)Result;
+                List<Subscription> LSub = new List<Subscription>() { Sub };
+                Console.WriteLine(LSub.ToString());
+                Console.WriteLine("Hello World!");
+                Console.ReadKey();
+            } catch (Exception Except) {
+                Console.WriteLine(Except.Message);
             }
-
-            Customer Cliente = new Customer();
-            Cliente.RegistryCode = "79089806008";
-            Cliente.Name = "Carlos Duarte";
-            Cliente.Code = "777888";
-            Cliente.Email = "cbduarte@gmail.com";
-
-            Customer Cliente2 = new Customer();
-            Cliente2.RegistryCode = "09177350480";
-
-            PlanItems planItems = new PlanItems();
-            planItems.Product = NewProduct;
-
-            Plan Plan = new Plan();
-            Plan.Name = "Anual livre 59,90";
-            Plan.Code = "82299";
-            Plan.BillingCycles = 12;
-            Plan.BillingTriggerType = "beginning_of_period";
-            Plan.Interval = "months";
-            Plan.IntervalName = "Mensalidade";
-            Plan.IntervalCount = 1;
-            Plan.Installments = "1";
-            Plan.BillingTriggerDay = "0";
-            Plan.PlanItems = new PlanItems[] { planItems };
-
-            /*CreatePlanRequester createPlan = new CreatePlanRequester();
-            createPlan.Plan = Plan;*/
-            /*
-            var Re = Vindi.CreateAnythingAsync(createPlan);*/
-
-            PaymentCompany Pc = new PaymentCompany();
-            Pc.Code = "visa";
-
-            PaymentProfile Pf = new PaymentProfile();
-            Pf.RegistryCode = "79089806008";
-            Pf.HolderName = "Carlos Duarte";
-            Pf.Customer = Cliente;
-            Pf.PaymentCompany = Pc;
-            Pf.CardNumber = "4444444444444448";
-            Pf.CardExpiration = "12/2019";
-            Pf.CardCvv = "123";
-
-            var Result2 = Vindi.DeleteSubscription(Cliente2);
-            var Result = Vindi.CreateSubscriptionRequester(Cliente2, Plan, Pf);
-
-            Subscription Sub = (Subscription)Result;
-            Console.WriteLine("Code: " + "\n Cliente: " + Sub.Customer.Name + " /n CPF: " + "\n Plano: " + Sub.Plan.Name + "\n Preço: ");
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
         
         }
         
