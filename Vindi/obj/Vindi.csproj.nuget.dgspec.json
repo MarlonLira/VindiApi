@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Academia Brilhante\\Desktop\\API\\Vindi\\Vindi.csproj": {}
+    "C:\\Projetos\\SDK\\Vindi\\Vindi\\Vindi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Academia Brilhante\\Desktop\\API\\Vindi\\Vindi.csproj": {
+    "C:\\Projetos\\SDK\\Vindi\\Vindi\\Vindi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Academia Brilhante\\Desktop\\API\\Vindi\\Vindi.csproj",
+        "projectUniqueName": "C:\\Projetos\\SDK\\Vindi\\Vindi\\Vindi.csproj",
         "projectName": "Vindi",
-        "projectPath": "C:\\Users\\Academia Brilhante\\Desktop\\API\\Vindi\\Vindi.csproj",
+        "projectPath": "C:\\Projetos\\SDK\\Vindi\\Vindi\\Vindi.csproj",
         "packagesPath": "C:\\Users\\Academia Brilhante\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Academia Brilhante\\Desktop\\API\\Vindi\\obj\\",
+        "outputPath": "C:\\Projetos\\SDK\\Vindi\\Vindi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

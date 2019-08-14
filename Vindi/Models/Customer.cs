@@ -18,7 +18,7 @@ namespace Vindi
         public string RegistryCode { get; set; }
 
         [JsonProperty("code")]
-        public string Code { get; set; }
+        public String Code { get; set; }
 
         [JsonProperty("notes")]
         public string Notes { get; set; }
