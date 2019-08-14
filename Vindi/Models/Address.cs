@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Vindi
+namespace Vindi.Models.Models
 {
     public class Address
     {

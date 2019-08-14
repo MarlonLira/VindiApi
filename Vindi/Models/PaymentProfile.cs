@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Vindi
+namespace Vindi.Models
 {
     public class PaymentProfile
     {
         
         [JsonProperty("id")]
         public int Id { get; set; }
-
         
         [JsonProperty("status")]
         public string Status { get; set; }

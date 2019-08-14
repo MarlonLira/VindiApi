@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using Vindi.Models;
 
 namespace Vindi.Requesters
 {

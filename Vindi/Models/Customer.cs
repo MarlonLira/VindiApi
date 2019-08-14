@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
+using Vindi.Models.Models;
 
-namespace Vindi
+namespace Vindi.Models
 {
     public class Customer
     {
