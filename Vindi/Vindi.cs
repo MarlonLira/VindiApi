@@ -228,12 +228,15 @@ namespace Vindi {
         }
         public dynamic GetByAnythingAsync(dynamic Entitie, Boolean IsForQUery = false, Boolean IsById = false) {
             Service = new Service(Config);
-            dynamic Result;
-            if (IsById == false) {
-                Result = Service.GetByAnythingAsync(Entitie, IsForQUery);
-            }
-            else {
-                Result = Service.GetByIdAnythingAsync(Entitie).GetAwaiter().GetResult();
+            dynamic Result = "";
+            try {
+                if (IsById == false) {
+                    Result = Service.GetByAnythingAsync(Entitie, IsForQUery);
+                } else {
+                    Result = Service.GetByIdAnythingAsync(Entitie).GetAwaiter().GetResult();
+                }
+            } catch (Exception Except) {
+                throw new Exception(Except.Message);
             }
             return Result;
         }

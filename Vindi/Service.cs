@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Vindi.Helpers;
 using Vindi.Requesters;
+using Vindi.Models;
 
 namespace Vindi
 {
@@ -139,6 +140,41 @@ namespace Vindi
         #endregion
 
         #region Get Methods
+
+        //Retorna todos as transações
+        public async Task<IEnumerable<Product>> GetByAnythingAsync(Transaction Transaction, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+            var list = await SearchByAnythingAsync("transactions", Query, Page, PerPage, filterSearch, sortOrder);
+            return FromDynamicTo<IEnumerable<Transaction>>(list?.transactions);
+        }
+
+        //Retorna a transação pelo id informado
+        public async Task<Product> GetByIdAnythingAsync(Transaction Transaction) {
+            var result = await SearchByIdAsync("transactions", Transaction.Id);
+            return FromDynamicTo<Product>(result?.transaction);
+        }
+
+        //Pesquisa as transações de um cliente pelo id da cobrança(Todas as transações da cobrança informada) ou id do cliente(Todas as trnasações do cliente).
+        public dynamic GetByAnythingAsync(Transaction Transaction, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (Transaction.Charge.Id > 0) {
+                        Query.Add(FilterSearch.charge_id, Convert.ToString(Transaction.Charge.Id));
+                    } else if (Transaction.Customer.Id > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(Transaction.Customer.Id));
+                    }
+
+                    Result = GetByAnythingAsync(Transaction, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Transaction, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
 
         //Retorna todos os produtos
         public async Task<IEnumerable<Product>> GetByAnythingAsync(Product Product ,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
@@ -374,6 +410,29 @@ namespace Vindi
             return FromDynamicTo<Charge>(result?.charge);
         }
 
+        //Pesquisa as Cobranças de um cliente pelo id da fatura(Todas as cobranças da fatura informada) ou id do cliente(Todas as cobranças do cliente).
+        public dynamic GetByAnythingAsync(Charge Charge, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (Charge.Bill.Id > 0) {
+                        Query.Add(FilterSearch.bill_id, Convert.ToString(Charge.Bill.Id));
+                    } else if (Charge.Customer.Id > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(Charge.Customer.Id));
+                    }
+
+                    Result = GetByAnythingAsync(Charge, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Charge, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
+        }
+
         //Retorna todas as faturas
         public async Task<IEnumerable<Bill>> GetByAnythingAsync(Bill Bill, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("bills", Query, Page, PerPage, filterSearch, sortOrder);
@@ -390,6 +449,29 @@ namespace Vindi
         public async Task<BillItems> GetByIdAnythingAsync(BillItems Bill_Items) {
             var result = await SearchByIdAsync("bill_items", Bill_Items.Id);
             return FromDynamicTo<BillItems>(result?.bill_item);
+        }
+
+        //Pesquisa as faturas de um cliente pelo id da assinatura(Todas da assinatura informada) ou id do cliente(Todas do cliente).
+        public dynamic GetByAnythingAsync(Bill Bill, Boolean IsforQuery) {
+            dynamic Result = null;
+            IDictionary<FilterSearch, String> Query;
+            try {
+                if (IsforQuery == true) {
+                    Query = new Dictionary<FilterSearch, String>();
+                    if (Bill.Subscription.Id > 0) {
+                        Query.Add(FilterSearch.subscription_id, Convert.ToString(Bill.Subscription.Id));
+                    } else if (Bill.Customer.Id > 0) {
+                        Query.Add(FilterSearch.customer_id, Convert.ToString(Bill.Customer.Id));
+                    }
+
+                    Result = GetByAnythingAsync(Bill, Query, 1, 20, FilterSearch.id,SortOrder.desc).GetAwaiter().GetResult();
+                } else {
+                    Result = GetByAnythingAsync(Bill, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                }
+            } catch (FlurlHttpException Except) {
+                throw new Exception(Except.Message);
+            }
+            return Result;
         }
 
         //Retorna o Desconto pelo id informado.
@@ -585,6 +667,27 @@ namespace Vindi
             var result = await PutByIdAsync("subscriptions", SubscriptionEdit.Id, Payload);
             return FromDynamicTo<Subscription>(result?.subscription);
         }
+
+        //Atualiza uma assinatura passando sua entidadade(Bill) com os dados a serem atualizados.
+        public async Task<Bill> UpdateAnythingAsync(Bill BillEdit) {
+            object Payload = BillEdit;
+            var result = await PutByIdAsync("bills", BillEdit.Id, Payload);
+            return FromDynamicTo<Bill>(result?.bill);
+        }
+
+        //Atualiza uma cobrança passando sua entidadade(charge) com os dados a serem atualizados.
+        public async Task<Bill> UpdateAnythingAsync(Charge ChargeEdit) {
+            object Payload = ChargeEdit;
+            var result = await PutByIdAsync("charges", ChargeEdit.Id, Payload);
+            return FromDynamicTo<Bill>(result?.charge);
+        }
+        //Atualiza uma cobrança passando sua entidadade(charge) com os dados a serem atualizados.
+        public async Task<Bill> UpdateAnythingAsync(Models.Transaction TransactionEdit) {
+            object Payload = TransactionEdit;
+            var result = await PutByIdAsync("transactions", TransactionEdit.Id, Payload);
+            return FromDynamicTo<Bill>(result?.transaction);
+        }
+
 
         #endregion
 
