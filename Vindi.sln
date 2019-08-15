@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vindi", "Vindi\Vindi.csproj", "{2148AF8C-38B9-4067-B670-6B07BC525FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vindi", "Vindi\Vindi.csproj", "{2148AF8C-38B9-4067-B670-6B07BC525FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VindiSdk", "VindiSdk\VindiSdk.csproj", "{3F4E4808-15D0-4F5C-B79F-2ADC7A1129BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2148AF8C-38B9-4067-B670-6B07BC525FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2148AF8C-38B9-4067-B670-6B07BC525FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2148AF8C-38B9-4067-B670-6B07BC525FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F4E4808-15D0-4F5C-B79F-2ADC7A1129BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F4E4808-15D0-4F5C-B79F-2ADC7A1129BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F4E4808-15D0-4F5C-B79F-2ADC7A1129BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F4E4808-15D0-4F5C-B79F-2ADC7A1129BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
