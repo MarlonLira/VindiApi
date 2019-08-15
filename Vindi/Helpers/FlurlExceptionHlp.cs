@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace Vindi.Helpers
 {
-    class FlurlExceptionHlp
+    public class FlurlExceptionHlp
     {
         public String ConvertToString(FlurlHttpException Except) {
             String Result = "";

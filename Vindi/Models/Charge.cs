@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Vindi
+namespace Vindi.Models
 {
     public class Charge
     {

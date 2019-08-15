@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Vindi
+namespace Vindi.Models
 {
     public class Issue
     {
