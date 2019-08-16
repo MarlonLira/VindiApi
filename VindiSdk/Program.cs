@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Flurl.Http;
+using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 using VindiSdk.Models;
 
 namespace VindiSdk {
@@ -13,6 +16,19 @@ namespace VindiSdk {
                 };
                 PaymentMethods PayMethodsEdit;
 
+                /*int d = 5000;
+
+                var result = SearchByIdAsync().GetAwaiter().GetResult();
+
+                async Task<dynamic> SearchByIdAsync() {
+                    ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                    return await $@"{VindiSdk.Config.UrlApi + "/api/v1"}/{"products"}/{479020}"
+                   .WithBasicAuth(Convert.ToString(VindiSdk.Config.Authorization), "")
+                   .GetJsonAsync();
+                };*/
+                    
                 //Metodo de Pagamento Debito Automatico
                 /*PayMethodsEdit = new PaymentMethods() {
                     Code = "bank_debit"
@@ -24,12 +40,18 @@ namespace VindiSdk {
                 };
 
                 Product NewProduct = new Product();
-                NewProduct.Code = "5376";
-                NewProduct.Name = "Mensalidade 54,90";
-                NewProduct.PricingSchema = new PricingSchema() { Price = "54.9" };
-                var Find = VindiSdk.GetByAnythingAsync(NewProduct);
+                NewProduct.Code = "5375556";
+                NewProduct.Name = "Mensalidade 51,90";
+                NewProduct.PricingSchema = new PricingSchema() { Price = "51.9" };
+                
+                var Find2 = VindiSdk.GetByAnythingAsync(NewProduct, true);
 
+                var Find = VindiSdk.GetByAnythingAsync(NewProduct);
                 NewProduct = (Product)VindiSdk.CreateAnythingAsync(NewProduct);
+
+                Console.WriteLine();
+                Console.ReadKey();
+                
                 var Products = VindiSdk.GetByAnythingAsync(NewProduct, true);
                 List<Product> FindProduct = (List<Product>)Products;
                 foreach (Product ProductEdit in FindProduct) {

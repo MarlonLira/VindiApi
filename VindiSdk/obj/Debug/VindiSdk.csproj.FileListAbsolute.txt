@@ -1,3 +1,4 @@
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\VindiSdk.exe
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\VindiSdk.pdb
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\Flurl.dll
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\Flurl.Http.dll
@@ -5,9 +6,8 @@ C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\Newtonsoft.Json.dll
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\Flurl.xml
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\Flurl.Http.xml
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\Newtonsoft.Json.xml
-C:\Projetos\SDK\Vindi\VindiSdk\obj\Debug\VindiSdk.csprojAssemblyReference.cache
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Debug\VindiSdk.csproj.CoreCompileInputs.cache
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Debug\VindiSdk.csproj.CopyComplete
-C:\Projetos\SDK\Vindi\VindiSdk\obj\Debug\VindiSdk.pdb
-C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\VindiSdk.exe
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Debug\VindiSdk.exe
+C:\Projetos\SDK\Vindi\VindiSdk\obj\Debug\VindiSdk.pdb
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Debug\VindiSdk.exe.config

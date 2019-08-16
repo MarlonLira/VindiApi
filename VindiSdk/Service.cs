@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using VindiSdk.Helpers;
 using VindiSdk.Requesters;
 using VindiSdk.Models;
+using System.Net;
 
 namespace VindiSdk
 {
@@ -32,6 +33,8 @@ namespace VindiSdk
 
         #region Others
         private async Task<dynamic> DeleteByIdAndQueryAsync(String Uri, Int32 Id, IDictionary<FilterSearch, String> Query = null) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var queryString = QueryString(Query);
             return await $@"{UrlApi}/{Uri}/{Id}{(String.IsNullOrEmpty(queryString) ? String.Empty : queryString.Substring(1))}"
                 .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
@@ -39,6 +42,8 @@ namespace VindiSdk
                 .ReceiveJson();
         }
         private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Id}"
@@ -54,6 +59,8 @@ namespace VindiSdk
             return Result;
         }
         private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Param}/{Action}"
@@ -70,6 +77,8 @@ namespace VindiSdk
         }
 
         private async Task<dynamic> PostByAnythingAsync(String Uri, Object Requster) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}"
@@ -84,6 +93,8 @@ namespace VindiSdk
             return Result;
         }
         private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}"
@@ -98,6 +109,8 @@ namespace VindiSdk
             return Result;
         }
         private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Id}"
@@ -120,6 +133,8 @@ namespace VindiSdk
             => Query != null ? $"&query={String.Join(" ", Query.Select(x => $"{x.Key.ToString()}:{x.Value}"))}" : String.Empty;
 
         private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
@@ -132,17 +147,20 @@ namespace VindiSdk
             }
             return Result;
         }
-        private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id)
-            => await $@"{UrlApi}/{Uri}/{Id}"
+        private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            return await $@"{UrlApi}/{Uri}/{Id}"
                 .WithBasicAuth(Convert.ToString(Authorization), "")
                 .GetJsonAsync();
+        }
 
         #endregion
 
         #region Get Methods
 
         //Retorna todos as transações
-        public async Task<IEnumerable<Product>> GetByAnythingAsync(Transaction Transaction, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Transaction>> GetByAnythingAsync(Transaction Transaction, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("transactions", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Transaction>>(list?.transactions);
         }
