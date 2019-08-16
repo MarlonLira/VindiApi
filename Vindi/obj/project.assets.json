@@ -880,23 +880,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\marlo\\.nuget\\packages\\": {},
+    "C:\\Users\\Academia Brilhante\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Web\\Api\\VindiApi\\Vindi\\Vindi.csproj",
+      "projectUniqueName": "C:\\Projetos\\SDK\\Vindi\\Vindi\\Vindi.csproj",
       "projectName": "Vindi",
-      "projectPath": "C:\\Web\\Api\\VindiApi\\Vindi\\Vindi.csproj",
-      "packagesPath": "C:\\Users\\marlo\\.nuget\\packages\\",
-      "outputPath": "C:\\Web\\Api\\VindiApi\\Vindi\\obj\\",
+      "projectPath": "C:\\Projetos\\SDK\\Vindi\\Vindi\\Vindi.csproj",
+      "packagesPath": "C:\\Users\\Academia Brilhante\\.nuget\\packages\\",
+      "outputPath": "C:\\Projetos\\SDK\\Vindi\\Vindi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\marlo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Academia Brilhante\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
