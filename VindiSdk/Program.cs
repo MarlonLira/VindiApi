@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using VindiSdk.Models;
 
-namespace Vindi {
+namespace VindiSdk {
     class Program
     {
         static void Main(string[] args) {

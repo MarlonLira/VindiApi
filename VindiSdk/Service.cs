@@ -9,7 +9,7 @@ using VindiSdk.Helpers;
 using VindiSdk.Requesters;
 using VindiSdk.Models;
 
-namespace Vindi
+namespace VindiSdk
 {
     public class Service
     {

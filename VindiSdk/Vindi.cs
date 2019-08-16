@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using VindiSdk.Models;
 using VindiSdk.Requesters;
 
-namespace Vindi {
+namespace VindiSdk {
     public class Vindi {
 
         #region Configs

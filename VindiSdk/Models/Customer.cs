@@ -2,7 +2,7 @@
 using System;
 using VindiSdk.Models.Models;
 
-namespace VindiSdk.Models
+namespace VindiSdk .Models
 {
     public class Customer
     {

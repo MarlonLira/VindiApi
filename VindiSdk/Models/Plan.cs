@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace VindiSdk.Models
+namespace VindiSdk .Models
 {
     public class Plan
     {
