@@ -2,7 +2,7 @@
 using System;
 using VindiSdk.Models;
 
-namespace VindiSdk .Requesters
+namespace VindiSdk.Requesters
 {
     public class CreatePlanRequester
     {

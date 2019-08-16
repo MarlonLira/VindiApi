@@ -35,7 +35,6 @@ C:\Projetos\SDK\Vindi\VindiSdk\bin\Flurl.xml
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Flurl.Http.xml
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Newtonsoft.Json.xml
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csprojAssemblyReference.cache
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csproj.CoreCompileInputs.cache
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csproj.CopyComplete
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.dll

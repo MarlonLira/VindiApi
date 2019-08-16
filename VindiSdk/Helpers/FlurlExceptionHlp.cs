@@ -2,7 +2,7 @@
 using System;
 using System.Net.Http;
 
-namespace VindiSdk .Helpers
+namespace VindiSdk.Helpers
 {
     public class FlurlExceptionHlp
     {

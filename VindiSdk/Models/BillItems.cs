@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace VindiSdk .Models
+namespace VindiSdk.Models
 {
     public class BillItems
     {
