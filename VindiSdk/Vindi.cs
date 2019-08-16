@@ -231,10 +231,12 @@ namespace VindiSdk {
             Service = new Service(Config);
             dynamic Result = "";
             try {
-                if (IsById == false) {
+                if (IsById == false && IsForQUery == true) {
                     Result = Service.GetByAnythingAsync(Entitie, IsForQUery);
-                } else {
+                } else if(IsById == true) {
                     Result = Service.GetByIdAnythingAsync(Entitie).GetAwaiter().GetResult();
+                } else {
+                    Result = Service.GetByAnythingAsync(Entitie);
                 }
             } catch (Exception Except) {
                 throw new Exception(Except.Message);

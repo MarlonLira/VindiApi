@@ -27,8 +27,9 @@ namespace VindiSdk {
                 NewProduct.Code = "5376";
                 NewProduct.Name = "Mensalidade 54,90";
                 NewProduct.PricingSchema = new PricingSchema() { Price = "54.9" };
+                var Find = VindiSdk.GetByAnythingAsync(NewProduct);
 
-                //NewProduct = (Product)VindiSdk.CreateAnythingAsync(NewProduct);
+                NewProduct = (Product)VindiSdk.CreateAnythingAsync(NewProduct);
                 var Products = VindiSdk.GetByAnythingAsync(NewProduct, true);
                 List<Product> FindProduct = (List<Product>)Products;
                 foreach (Product ProductEdit in FindProduct) {
