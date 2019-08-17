@@ -55,7 +55,7 @@ namespace Vindi {
                     }
                 }
 
-                /* Pesquisa se o cliente possui um perfil de pagamendo disponivel pelo id ou cpf do cliente caso não encontre ou seja passado dados diferentes 
+                /* Pesquisa se o cliente possui um perfil de pagamendo disponivel pelo id ou cpf do cliente caso não encontre ou caso seja passado dados diferentes 
                  * tenta cadastra um novo perfil de pagamento com as informações passadas e da prosseguimento no processo de Assinatura caso consiga. 
                  */
                 if (PayProfileEdit == null) {

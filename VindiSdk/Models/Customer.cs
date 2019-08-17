@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using VindiSdk.Models.Models;
+
 
 namespace VindiSdk.Models
 {

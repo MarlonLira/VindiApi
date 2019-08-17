@@ -1,0 +1,14 @@
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\VindiSdk.pdb
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Flurl.dll
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Flurl.Http.dll
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Newtonsoft.Json.dll
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Flurl.xml
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Flurl.Http.xml
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Newtonsoft.Json.xml
+C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csprojAssemblyReference.cache
+C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csproj.CoreCompileInputs.cache
+C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csproj.CopyComplete
+C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.pdb
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\VindiSdk.dll.config
+C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\VindiSdk.dll
+C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.dll

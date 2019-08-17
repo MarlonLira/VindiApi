@@ -1,4 +1,4 @@
-﻿namespace Vindi
+﻿namespace VindiSdk
 {
     public enum FilterSearch
     {

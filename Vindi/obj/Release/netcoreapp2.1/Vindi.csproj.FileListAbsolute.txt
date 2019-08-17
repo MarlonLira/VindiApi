@@ -8,3 +8,4 @@ C:\Projetos\SDK\Vindi\Vindi\obj\Release\netcoreapp2.1\Vindi.AssemblyInfoInputs.c
 C:\Projetos\SDK\Vindi\Vindi\obj\Release\netcoreapp2.1\Vindi.AssemblyInfo.cs
 C:\Projetos\SDK\Vindi\Vindi\obj\Release\netcoreapp2.1\Vindi.dll
 C:\Projetos\SDK\Vindi\Vindi\obj\Release\netcoreapp2.1\Vindi.pdb
+C:\Projetos\SDK\Vindi\Vindi\obj\Release\netcoreapp2.1\Vindi.csprojAssemblyReference.cache

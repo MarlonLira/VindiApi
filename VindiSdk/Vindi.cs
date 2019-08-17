@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using VindiSdk.Models;
 using VindiSdk.Requesters;
 
-namespace Vindi {
+namespace VindiSdk {
     public class Vindi {
 
         #region Configs
@@ -233,9 +233,9 @@ namespace Vindi {
             try {
                 if (IsById == false) {
                     Result = Service.GetByAnythingAsync(Entitie, IsForQUery);
-                } else {
-                    Result = Service.GetByIdAnythingAsync(Entitie).GetAwaiter().GetResult();
-                }
+                } else if(IsById == true) {
+                    Result = Service.GetByIdAnythingAsync(Entitie);
+                } 
             } catch (Exception Except) {
                 throw new Exception(Except.Message);
             }

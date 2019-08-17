@@ -1,10 +1,14 @@
-﻿namespace Vindi
+﻿using System.Net;
+
+namespace VindiSdk
 {
     public class Configuration
     {
         #region Constructor
 
         public Configuration(string urlApi, int version, string authorization) {
+           
+
             UrlApi = urlApi;
             Version = version;
             Authorization = authorization;

@@ -3,9 +3,9 @@ C:\Projetos\SDK\Vindi\Vindi\bin\Debug\netcoreapp2.1\Vindi.runtimeconfig.json
 C:\Projetos\SDK\Vindi\Vindi\bin\Debug\netcoreapp2.1\Vindi.runtimeconfig.dev.json
 C:\Projetos\SDK\Vindi\Vindi\bin\Debug\netcoreapp2.1\Vindi.dll
 C:\Projetos\SDK\Vindi\Vindi\bin\Debug\netcoreapp2.1\Vindi.pdb
-C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.csprojAssemblyReference.cache
 C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.csproj.CoreCompileInputs.cache
 C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.AssemblyInfoInputs.cache
 C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.AssemblyInfo.cs
 C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.dll
 C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.pdb
+C:\Projetos\SDK\Vindi\Vindi\obj\Debug\netcoreapp2.1\Vindi.csprojAssemblyReference.cache
