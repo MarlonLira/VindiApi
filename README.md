@@ -5,7 +5,8 @@ Integração com a API da [Vindi](https://www.vindi.com.br "Vindi").
 Este pacote foi baseado no [SDK Oficial em PHP](https://github.com/vindi/vindi-php "SDK oficial") e consiste em um SDK em C# não oficial para a [API de Recorrência](https://vindi.github.io/api-docs/dist/ "API Vindi") da [Vindi](https://www.vindi.com.br "Vindi") para fins de trabalho e estudo.
 
 # Requisitos
-- [.Net CORE 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1 ".Net Core 2.1") ou superior.
+- [.Net CORE 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1 ".Net Core 2.1") Projeto Vindi.
+- [.Net Framework 4.5](https://www.microsoft.com/pt-br/download/details.aspx?id=30653 ".Net Framework 4.5") Projeto VindiSdk.
 - [Flurl.Http](https://flurl.dev/ "Flurl")
 - [Newtonsoft.json](https://www.newtonsoft.com/json "Newtonsoft.Json")
 - Conta ativa na [Vindi](https://www.vindi.com.br "Vindi").
