@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using Vindi.Helpers;
 using Vindi.Requesters;
 using Vindi.Models;
+using System.Net;
 
 namespace Vindi
 {
     public class Service
     {
+
         #region Atributes
 
         private Object Authorization;
@@ -32,6 +34,8 @@ namespace Vindi
 
         #region Others
         private async Task<dynamic> DeleteByIdAndQueryAsync(String Uri, Int32 Id, IDictionary<FilterSearch, String> Query = null) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var queryString = QueryString(Query);
             return await $@"{UrlApi}/{Uri}/{Id}{(String.IsNullOrEmpty(queryString) ? String.Empty : queryString.Substring(1))}"
                 .WithBasicAuth(Convert.ToString(Authorization), "").AllowAnyHttpStatus()
@@ -39,6 +43,8 @@ namespace Vindi
                 .ReceiveJson();
         }
         private async Task<dynamic> DeleteByIdAsync(String Uri, Int32 Id) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Id}"
@@ -54,6 +60,8 @@ namespace Vindi
             return Result;
         }
         private async Task<dynamic> PostByAnythingBodyAsync(String Uri, String Param, String Action) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Param}/{Action}"
@@ -70,6 +78,8 @@ namespace Vindi
         }
 
         private async Task<dynamic> PostByAnythingAsync(String Uri, Object Requster) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}"
@@ -84,6 +94,8 @@ namespace Vindi
             return Result;
         }
         private async Task<dynamic> PutByAnythingAsync(String Uri, Object Requster) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}"
@@ -98,6 +110,8 @@ namespace Vindi
             return Result;
         }
         private async Task<dynamic> PutByIdAsync(String Uri, Int32 Id, Object Requester) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}/{Id}"
@@ -120,6 +134,8 @@ namespace Vindi
             => Query != null ? $"&query={String.Join(" ", Query.Select(x => $"{x.Key.ToString()}:{x.Value}"))}" : String.Empty;
 
         private async Task<dynamic> SearchByAnythingAsync(String Uri, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             dynamic Result = "";
             try {
                 Result = await $@"{UrlApi}/{Uri}?Page={Page}&per_Page={PerPage}&sort_by={filterSearch.ToString()}&sort_order={sortOrder.ToString()}{QueryString(Query)}"
@@ -127,22 +143,25 @@ namespace Vindi
                    .GetJsonAsync();
             } catch (FlurlHttpException Except) {
                 FExceptionHlp = new FlurlExceptionHlp();
-                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
             return Result;
         }
-        private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id)
-            => await $@"{UrlApi}/{Uri}/{Id}"
+        private async Task<dynamic> SearchByIdAsync(String Uri, Int32 Id) {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            return await $@"{UrlApi}/{Uri}/{Id}"
                 .WithBasicAuth(Convert.ToString(Authorization), "")
                 .GetJsonAsync();
+        }
 
         #endregion
 
         #region Get Methods
 
         //Retorna todos as transações
-        public async Task<IEnumerable<Product>> GetByAnythingAsync(Transaction Transaction, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Transaction>> GetByAnythingAsync(Transaction Transaction, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("transactions", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Transaction>>(list?.transactions);
         }
@@ -166,9 +185,9 @@ namespace Vindi
                         Query.Add(FilterSearch.customer_id, Convert.ToString(Transaction.Customer.Id));
                     }
 
-                    Result = GetByAnythingAsync(Transaction, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Transaction, Query, 1, 20, FilterSearch.created_at, SortOrder.desc).GetAwaiter().GetResult();
                 } else {
-                    Result = GetByAnythingAsync(Transaction, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Transaction, null, 1, 20, FilterSearch.created_at, SortOrder.desc).GetAwaiter().GetResult();
                 }
             } catch (FlurlHttpException Except) {
                 throw new Exception(Except.Message);
@@ -177,7 +196,7 @@ namespace Vindi
         }
 
         //Retorna todos os produtos
-        public async Task<IEnumerable<Product>> GetByAnythingAsync(Product Product ,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Product>> GetByAnythingAsync(Product Product, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("products", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Product>>(list?.products);
         }
@@ -242,12 +261,12 @@ namespace Vindi
                     } else {
                         Result = new List<Plan>();
                     }
-                    
+
                     if (!String.IsNullOrEmpty(Plan.Name) && (Result.Count <= 0 || Result.Count > 1)) {
                         if (Result.Count < 1) {
                             Query.Clear();
                         }
-                        Query.Add(FilterSearch.name, "'"+Plan.Name+"'");
+                        Query.Add(FilterSearch.name, "'" + Plan.Name + "'");
                         Result = GetByAnythingAsync(Plan, Query).GetAwaiter().GetResult();
                     }
 
@@ -261,7 +280,7 @@ namespace Vindi
         }
 
         //Retorna todos os clientes
-        public async Task<IEnumerable<Customer>> GetByAnythingAsync(Customer Customer,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Customer>> GetByAnythingAsync(Customer Customer, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("customers", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Customer>>(list?.customers);
         }
@@ -279,12 +298,12 @@ namespace Vindi
                     } else {
                         Result = new List<Customer>();
                     }
-                    
+
                     if (!String.IsNullOrEmpty(Customer.Code) && (Result.Count <= 0 || Result.Count > 1)) {
                         if (Result.Count < 1) {
                             Query.Clear();
                         }
-                        
+
                         Query.Add(FilterSearch.code, Customer.Code);
                         Result = GetByAnythingAsync(Customer, Query).GetAwaiter().GetResult();
                     }
@@ -304,7 +323,7 @@ namespace Vindi
         }
 
         //Retorna todas as assinaturas
-        public async Task<IEnumerable<Subscription>> GetByAnythingAsync(Subscription Subscription,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Subscription>> GetByAnythingAsync(Subscription Subscription, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("subscriptions", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Subscription>>(list?.subscriptions);
         }
@@ -325,7 +344,7 @@ namespace Vindi
                     if (Subscription.Customer.Id > 0) {
                         Query.Add(FilterSearch.customer_id, Convert.ToString(Subscription.Customer.Id));
                         Query.Add(FilterSearch.status, "active");
-                    } 
+                    }
                     Result = GetByAnythingAsync(Subscription, Query).GetAwaiter().GetResult();
                 } else {
                     Result = GetByAnythingAsync(Subscription).GetAwaiter().GetResult();
@@ -349,7 +368,7 @@ namespace Vindi
         }
 
         //Retorna todos os metodos de Pagamento
-        public async Task<IEnumerable<PaymentMethods>> GetByAnythingAsync(PaymentMethods PaymentMethods,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<PaymentMethods>> GetByAnythingAsync(PaymentMethods PaymentMethods, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("payment_methods", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<PaymentMethods>>(list?.payment_methods);
         }
@@ -361,7 +380,7 @@ namespace Vindi
         }
 
         //Retorna todos os perfis de pagamento
-        public async Task<IEnumerable<PaymentProfile>> GetByAnythingAsync(PaymentProfile PaymentProfile,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<PaymentProfile>> GetByAnythingAsync(PaymentProfile PaymentProfile, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("payment_profiles", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<PaymentProfile>>(list?.payment_profiles);
         }
@@ -397,9 +416,8 @@ namespace Vindi
             return Result;
         }
 
-
         //Retorna todas as cobranças
-        public async Task<IEnumerable<Charge>> GetByAnythingAsync(Charge Charge,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.created_at, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Charge>> GetByAnythingAsync(Charge Charge, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.created_at, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("charges", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Charge>>(list?.charges);
         }
@@ -423,9 +441,9 @@ namespace Vindi
                         Query.Add(FilterSearch.customer_id, Convert.ToString(Charge.Customer.Id));
                     }
 
-                    Result = GetByAnythingAsync(Charge, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Charge, Query).GetAwaiter().GetResult();
                 } else {
-                    Result = GetByAnythingAsync(Charge, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Charge).GetAwaiter().GetResult();
                 }
             } catch (FlurlHttpException Except) {
                 throw new Exception(Except.Message);
@@ -464,7 +482,7 @@ namespace Vindi
                         Query.Add(FilterSearch.customer_id, Convert.ToString(Bill.Customer.Id));
                     }
 
-                    Result = GetByAnythingAsync(Bill, Query, 1, 20, FilterSearch.id,SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Bill, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
                 } else {
                     Result = GetByAnythingAsync(Bill, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
                 }
@@ -505,7 +523,7 @@ namespace Vindi
         }
 
         //Retorna todas as pendencias.
-        public async Task<IEnumerable<Issue>> GetByAnythingAsync(Issue Issue,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Issue>> GetByAnythingAsync(Issue Issue, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("issues", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Issue>>(list?.issues);
         }
@@ -553,7 +571,7 @@ namespace Vindi
         }
 
         //Retorna todas as notificações.
-        public async Task<IEnumerable<Notification>> GetByAnythingAsync(Notification Notification ,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Notification>> GetByAnythingAsync(Notification Notification, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("notifications", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Notification>>(list?.notifications);
         }
@@ -565,7 +583,7 @@ namespace Vindi
         }
 
         //Retorna todos os perfis de acesso
-        public async Task<IEnumerable<Role>> GetByAnythingAsync(Role Role ,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
+        public async Task<IEnumerable<Role>> GetByAnythingAsync(Role Role, IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.id, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("roles", Query, Page, PerPage, filterSearch, sortOrder);
             return FromDynamicTo<IEnumerable<Role>>(list?.roles);
         }
@@ -603,7 +621,7 @@ namespace Vindi
             var result = await PostByAnythingAsync("plans", NewPlan);
             return FromDynamicTo<Plan>(result?.plan);
         }
-        
+
         //Cadastra o produto do item do plano passando sua entidade (Product)
         public async Task<Product> CreateAnythingAsync(Product NewProduct) {
             var result = await PostByAnythingAsync("products", NewProduct);
@@ -641,7 +659,7 @@ namespace Vindi
         #region Put Methods
 
         //Atualiza um cliente passando sua entidade(Customer) com os dados a serem atualizados.
-        public async Task<Customer> UpdateAnythingAsync(Customer CustomerEdit){
+        public async Task<Customer> UpdateAnythingAsync(Customer CustomerEdit) {
             dynamic Payload = CustomerEdit;
             var result = await PutByIdAsync("customers", CustomerEdit.Id, Payload);
             return FromDynamicTo<Customer>(result?.customer);
@@ -682,7 +700,7 @@ namespace Vindi
             return FromDynamicTo<Bill>(result?.charge);
         }
         //Atualiza uma cobrança passando sua entidadade(charge) com os dados a serem atualizados.
-        public async Task<Bill> UpdateAnythingAsync(Models.Transaction TransactionEdit) {
+        public async Task<Bill> UpdateAnythingAsync(Transaction TransactionEdit) {
             object Payload = TransactionEdit;
             var result = await PutByIdAsync("transactions", TransactionEdit.Id, Payload);
             return FromDynamicTo<Bill>(result?.transaction);

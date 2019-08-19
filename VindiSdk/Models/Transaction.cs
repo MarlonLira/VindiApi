@@ -36,13 +36,13 @@ namespace VindiSdk.Models
         public Object GatewayResponseFields { get; set; }
 
         [JsonProperty("fraud_detector_score")]
-        public Int32 FraudDetectorScore { get; set; }
+        public Object FraudDetectorScore { get; set; }
 
         [JsonProperty("fraud_detector_status")]
         public String FraudDetectorStatus { get; set; }
 
         [JsonProperty("fraud_detector_id")]
-        public Int32 FraudDetectorId { get; set; }
+        public Object FraudDetectorId { get; set; }
 
         [JsonProperty("created_at")]
         public String CreatedAt { get; set; }

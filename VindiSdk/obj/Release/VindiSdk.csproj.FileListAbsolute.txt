@@ -10,4 +10,3 @@ C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Vindi.dll
 C:\Projetos\SDK\Vindi\VindiSdk\bin\Release\Vindi.pdb
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\Vindi.dll
 C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\Vindi.pdb
-C:\Projetos\SDK\Vindi\VindiSdk\obj\Release\VindiSdk.csprojAssemblyReference.cache

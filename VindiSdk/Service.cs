@@ -142,7 +142,7 @@ namespace VindiSdk
                    .GetJsonAsync();
             } catch (FlurlHttpException Except) {
                 FExceptionHlp = new FlurlExceptionHlp();
-                String ExceptResult = FExceptionHlp.ConvertToJson(Except);
+                String ExceptResult = FExceptionHlp.ConvertToString(Except);
                 throw new Exception(ExceptResult);
             }
             return Result;
@@ -184,9 +184,9 @@ namespace VindiSdk
                         Query.Add(FilterSearch.customer_id, Convert.ToString(Transaction.Customer.Id));
                     }
 
-                    Result = GetByAnythingAsync(Transaction, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Transaction, Query, 1, 20, FilterSearch.created_at, SortOrder.desc).GetAwaiter().GetResult();
                 } else {
-                    Result = GetByAnythingAsync(Transaction, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Transaction, null, 1, 20, FilterSearch.created_at, SortOrder.desc).GetAwaiter().GetResult();
                 }
             } catch (FlurlHttpException Except) {
                 throw new Exception(Except.Message);
@@ -415,7 +415,6 @@ namespace VindiSdk
             return Result;
         }
 
-
         //Retorna todas as cobranças
         public async Task<IEnumerable<Charge>> GetByAnythingAsync(Charge Charge,IDictionary<FilterSearch, String> Query = null, Int32 Page = 1, Int32 PerPage = 20, FilterSearch filterSearch = FilterSearch.created_at, SortOrder sortOrder = SortOrder.asc) {
             var list = await SearchByAnythingAsync("charges", Query, Page, PerPage, filterSearch, sortOrder);
@@ -441,9 +440,9 @@ namespace VindiSdk
                         Query.Add(FilterSearch.customer_id, Convert.ToString(Charge.Customer.Id));
                     }
 
-                    Result = GetByAnythingAsync(Charge, Query, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Charge, Query).GetAwaiter().GetResult();
                 } else {
-                    Result = GetByAnythingAsync(Charge, null, 1, 20, FilterSearch.id, SortOrder.desc).GetAwaiter().GetResult();
+                    Result = GetByAnythingAsync(Charge).GetAwaiter().GetResult();
                 }
             } catch (FlurlHttpException Except) {
                 throw new Exception(Except.Message);

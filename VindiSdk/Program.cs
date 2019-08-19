@@ -28,13 +28,19 @@ namespace VindiSdk {
                    .WithBasicAuth(Convert.ToString(VindiSdk.Config.Authorization), "")
                    .GetJsonAsync();
                 };*/
-                    
+
                 //Metodo de Pagamento Debito Automatico
                 /*PayMethodsEdit = new PaymentMethods() {
                     Code = "bank_debit"
                 };*/
 
                 //Metodo de Pagamento Cartão de Credito
+
+
+                Transaction TransactionEdit = new Transaction();
+                TransactionEdit.Charge = new Charge() { Id = 50800569 };
+                List<Transaction> FindTransaction = (List<Transaction>)VindiSdk.GetByAnythingAsync(TransactionEdit, true);
+
                 PayMethodsEdit = new PaymentMethods() {
                     Code = "credit_card"
                 };
