@@ -29,9 +29,10 @@ namespace VindiSdk.Helpers
             Result = Result.Replace("invalid_parameter", "");
             Result = Result.Replace("parameter", "");
             Result = Result.Replace("message", "");
+            Result = Result.Replace(" id ", "\n");
             Result = Result.Replace("   ", " ");
             Result = Result.Replace("  ", " ");
-            Result = Result.Replace("id ", "\n");
+            
             Result = Result.Trim();
 
             return Result;

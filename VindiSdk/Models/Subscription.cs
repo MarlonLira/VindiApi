@@ -15,7 +15,7 @@ namespace VindiSdk.Models
         public DateTime? StartAt { get; set; }
 
         [JsonProperty("end_at")]
-        public object EndAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
         [JsonProperty("next_billing_at")]
         public DateTime? NextBillingAt { get; set; }
@@ -24,10 +24,10 @@ namespace VindiSdk.Models
         public DateTime? OverdueSince { get; set; }
 
         [JsonProperty("code")]
-        public object Code { get; set; }
+        public String Code { get; set; }
 
         [JsonProperty("cancel_at")]
-        public object CancelAt { get; set; }
+        public DateTime? CancelAt { get; set; }
 
         [JsonProperty("interval")]
         public string Interval { get; set; }
