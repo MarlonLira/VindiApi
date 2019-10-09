@@ -55,4 +55,3 @@ Customer NewCustomer = new Customer(){
 NewCustomer = (Customer)Vindi.CreateAnythingAsync(NewCustomer);
 
 ```
-## Em Construção...
